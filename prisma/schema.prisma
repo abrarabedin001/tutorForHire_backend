@@ -11,31 +11,59 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  role    Role     @default(USER)
-  course  Course[]
-  password String
-  profile Profile?
+  id             String          @id @default(uuid())
+  email          String          @unique
+  name           String?
+  role           Role            @default(USER)
+  password       String
+  StudentProfile StudentProfile?
+  TeacherProfile TeacherProfile?
 }
 
-model Profile {
-  id     Int    @id @default(autoincrement())
-  bio    String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+model StudentProfile {
+  id           String         @id @default(uuid())
+  bio          String
+  education    String
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String         @unique
+  CourseEnroll CourseEnroll[]
+  Chat         Chat[]
+  chatId       String?
+}
+
+model TeacherProfile {
+  id        String   @id @default(uuid())
+  bio       String
+  education String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  Course    Course[]
+  Chat      Chat[]
+  chatId    String?
 }
 
 model Course {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  title      String
-  published  Boolean    @default(false)
-  author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int
-  categories Category[]
+  id               String         @id @default(uuid())
+  title            String
+  published        Boolean        @default(false)
+  description      String?
+  seatStatus       Int?
+  address          String?
+  endDate          DateTime?
+  categories       Category[]
+  CourseEnroll     CourseEnroll[]
+  teacherProfileId String
+  TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model CourseEnroll {
+  id               String          @id @default(uuid())
+  courseId         String
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  studentProfileId String?
+  Course           Course          @relation(fields: [courseId], references: [id])
 }
 
 model Category {
@@ -47,4 +75,15 @@ model Category {
 enum Role {
   USER
   ADMIN
+}
+
+model Chat {
+  id               String         @id @default(uuid())
+  teacher          TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  student          StudentProfile @relation(fields: [studentProfileId], references: [id])
+  created_at       DateTime       @default(now())
+  teacherProfileId String
+  studentProfileId String
+
+  @@unique([teacherProfileId, studentProfileId])
 }
