@@ -16,14 +16,19 @@ model User {
   name           String?
   role           Role            @default(USER)
   password       String
-  type Type
+  type           Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
 }
 
-enum Type{
+enum Type {
   TEACHER
   STUDENT
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model StudentProfile {
@@ -78,11 +83,6 @@ model Category {
   course Course[]
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model Chat {
   id               String         @id @default(uuid())
   teacher          TeacherProfile @relation(fields: [teacherProfileId], references: [id])
@@ -93,4 +93,3 @@ model Chat {
 
   @@unique([teacherProfileId, studentProfileId])
 }
-
