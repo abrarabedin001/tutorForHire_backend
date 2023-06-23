@@ -1,8 +1,11 @@
 const express = require('express');
 const userRouter = require('./routes/userRoutes');
+const tutorRouter = require('./routes/tutorRoutes');
 const app = express();
 
 app.use(express.json());
+
+
 // localhost:3000/users/signin
 // post request {email,pasword}
 // if login?sussess:failure
@@ -12,6 +15,7 @@ app.use(express.json());
 // if login?sussess:failure
 
 app.use('/users', userRouter);
+app.use('/tutor',tutorRouter)
 // app.post('/users/signin', userRouter);
 // app.post('/users/signup', userRouter);
 

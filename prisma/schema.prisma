@@ -16,8 +16,14 @@ model User {
   name           String?
   role           Role            @default(USER)
   password       String
+  type Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
+}
+
+enum Type{
+  TEACHER
+  STUDENT
 }
 
 model StudentProfile {
@@ -87,3 +93,4 @@ model Chat {
 
   @@unique([teacherProfileId, studentProfileId])
 }
+
