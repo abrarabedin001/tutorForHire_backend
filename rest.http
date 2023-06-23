@@ -3,9 +3,9 @@ POST http://localhost:5000/users/signup HTTP/1.1
 Content-Type: application/json
 
 { 
-  "name": "abrar",
-  "email": "abrarabedin@slkdjf1234.sdfj",
-  "password": "123456"
+  "name": "Anik",
+  "email": "anik@gmail.com",
+  "password": "anik69"
 }
 
 ###
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFicmFyYWJlZGluQHNsa2RqZjEyMzQuc2RmaiIsImlkIjoiNjhhNGQ4ZGYtM2NiZC00MTBjLWJmYzgtMzAxZjNhZGQ1NzlhIiwiaWF0IjoxNjg3NTUyNjMwfQ.pY8l2b_e1H-QLdg9dz6wk6InllFV6jDCcepCDRW-V6o
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFicmFyYWJlZGluQHNsa2RqZjEyMzQuc2RmaiIsImlkIjoiODg1NDdkMjUtYmQwMi00NDRjLWIzODUtZjJjMDRkMjRiMjQ2IiwiaWF0IjoxNjg3NTUzMzA2fQ.U4Dki8WEFIMo1jxXSkHTR5evv9vK4NOIF9MI26aa1ME
 
 { 
   "bio": "abrarabedin@slkdjf12.sdfj",
@@ -29,10 +29,13 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFicmFyYW
 }
 
 
-# simple string -> jumbled1 !=> string
-# single string -> jumbled2 |comp(jumbled1,jumbled2)
-# create course
-# token created at backend => sent to front end
 
+###
+POST  http://localhost:5000/tutor/tutorcreate HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwiaWQiOiJiMGRhM2ViMi0zN2U1LTQyMTQtOGU3Yi1iZTI0N2UyNDFiNmQiLCJpYXQiOjE2ODc1NTQ4MjB9.CnYumgxLjaOfBRKSkwYCtb5fF4cXg55fW-a4bZNLbEY
 
-# /customer/user_id
+{ 
+  "bio": "teach biology",
+  "education": "phd. biology"
+}
