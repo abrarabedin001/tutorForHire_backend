@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'skldjfa;lsdj';
 
 const auth = (req, res, next) => {
   try {
@@ -6,6 +7,7 @@ const auth = (req, res, next) => {
     if (token) {
       token = token.split(' ')[1];
       let user = jwt.verify(token, SECRET_KEY);
+      // console.log('user token desrambles', user);
       req.userId = user.id;
     } else {
       res.status(401).json({ message: 'Unauthorized User' });

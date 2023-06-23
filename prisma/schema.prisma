@@ -16,7 +16,7 @@ model User {
   name           String?
   role           Role            @default(USER)
   password       String
-  type           Type
+  type           Type?
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
 }
@@ -84,10 +84,10 @@ model Category {
 }
 
 model Chat {
-  id               String         @id @default(uuid())
-  teacher          TeacherProfile @relation(fields: [teacherProfileId], references: [id])
-  student          StudentProfile @relation(fields: [studentProfileId], references: [id])
-  created_at       DateTime       @default(now())
+  id               String          @id @default(uuid())
+  teacher          TeacherProfile? @relation(fields: [teacherProfileId], references: [id])
+  student          StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  created_at       DateTime        @default(now())
   teacherProfileId String
   studentProfileId String
 
