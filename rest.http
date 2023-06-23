@@ -4,7 +4,7 @@ Content-Type: application/json
 
 { 
   "name": "abrar",
-  "email": "abrarabedin@slkdjf123.sdfj",
+  "email": "abrarabedin@slkdjf1234.sdfj",
   "password": "123456"
 }
 
@@ -13,8 +13,19 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "abrarabedin@slkdjf12.sdfj",
+  "email": "abrarabedin@slkdjf123.sdfj",
   "password": "123456"
+}
+
+###
+
+POST  http://localhost:5000/student/create HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFicmFyYWJlZGluQHNsa2RqZjEyMzQuc2RmaiIsImlkIjoiNjhhNGQ4ZGYtM2NiZC00MTBjLWJmYzgtMzAxZjNhZGQ1NzlhIiwiaWF0IjoxNjg3NTUyNjMwfQ.pY8l2b_e1H-QLdg9dz6wk6InllFV6jDCcepCDRW-V6o
+
+{ 
+  "bio": "abrarabedin@slkdjf12.sdfj",
+  "education": "123456"
 }
 
 
