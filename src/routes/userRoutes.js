@@ -1,13 +1,19 @@
 const express = require("express")
+const prisma = require("../Database")
+const { signup, signin } = require("../controllers/userController")
+
+// const {PrismaClient }= require('@prisma/client')
+// const prisma = new PrismaClient()
 
 const userRouter = express.Router()
 
-userRouter.get("/signup",(req,res)=>{
-  res.send("Signup")
-})
-userRouter.get("/signin",(req,res)=>{
-  res.send("Signin")
-})
+userRouter.post("/signup",signup)
+userRouter.get("/signin",signin)
 
 module.exports = userRouter
 
+// async (req,res)=>{
+//   let {email,name,password} = req.body()
+//   let users = await prisma.user.findMany()
+//   res.send(users)
+// }
