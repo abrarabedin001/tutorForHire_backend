@@ -6,6 +6,8 @@ const { signup, signin } = require('../controllers/userController');
 // const prisma = new PrismaClient()
 
 const userRouter = express.Router();
+// localhost:3000/users/singin
+// functions -> controller
 
 userRouter.post('/signup', signup);
 userRouter.post('/signin', signin);
@@ -17,3 +19,4 @@ module.exports = userRouter;
 //   let users = await prisma.user.findMany()
 //   res.send(users)
 // }
+// MVC model-database view-router controller-function

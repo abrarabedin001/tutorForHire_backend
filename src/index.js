@@ -1,16 +1,24 @@
-const express = require("express")
-const userRouter = require("./routes/userRoutes")
-const app = express()
+const express = require('express');
+const userRouter = require('./routes/userRoutes');
+const app = express();
 
 app.use(express.json());
-app.use("/users",userRouter)
+// localhost:3000/users/signin
+// post request {email,pasword}
+// if login?sussess:failure
 
-app.get("/",(req,res)=>{
-  res.status(200).send("Hello")
-})
+// localhost:3000/users/signup
+// post request {email,pasword, username}
+// if login?sussess:failure
 
-app.listen(5000,()=>{
-  console.log(
-    "Server started on port no:5000"
-  )
-})
+app.use('/users', userRouter);
+// app.post('/users/signin', userRouter);
+// app.post('/users/signup', userRouter);
+
+app.get('/', (req, res) => {
+  res.status(200).send('Hello');
+});
+
+app.listen(5000, () => {
+  console.log('Server started on port no:5000');
+});

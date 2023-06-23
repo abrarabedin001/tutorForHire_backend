@@ -4,15 +4,24 @@ Content-Type: application/json
 
 { 
   "name": "abrar",
-  "email": "abrarabedin@slkdjf12.sdfj",
+  "email": "abrarabedin@slkdjf123.sdfj",
   "password": "123456"
 }
 
 ###
-POST http://localhost:5000/users/signin HTTP/1.1
+POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
   "email": "abrarabedin@slkdjf12.sdfj",
   "password": "123456"
 }
+
+
+# simple string -> jumbled1 !=> string
+# single string -> jumbled2 |comp(jumbled1,jumbled2)
+# create course
+# token created at backend => sent to front end
+
+
+# /customer/user_id
