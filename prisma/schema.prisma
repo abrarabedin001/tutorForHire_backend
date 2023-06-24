@@ -16,7 +16,7 @@ model User {
   name           String?
   role           Role            @default(USER)
   password       String
-  type           Type?
+  type           Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
 }

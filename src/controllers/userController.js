@@ -9,19 +9,24 @@ const signup = async (req, res) => {
 
   // email,name,password = req.body
   // distructuring
+  console.log('signup hoche');
 
-  let { email, name, password } = req.body;
+  let { email, name, password, type } = req.body;
+  console.log(req.body, email, name, password, type);
+
   try {
-    // using bcrypt to hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     //query databse
     let user = await prisma.user.create({
-      data: { name: name, email: email, password: hashedPassword },
+      data: { name: name, email: email, password: hashedPassword, type: type },
     });
 
     // the token will be save in cookies (to see if signed in or not)
-    const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY);
+    const token = jwt.sign(
+      { email: user.email, id: user.id, type: user.type, role: user.role },
+      SECRET_KEY,
+    );
 
     res.status(201).json({ user: user, token: token });
   } catch (err) {
@@ -43,7 +48,10 @@ const signin = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid password' });
     }
-    const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY);
+    const token = jwt.sign(
+      { email: user.email, id: user.id, type: user.type, role: user.role },
+      SECRET_KEY,
+    );
 
     res
       .status(200)
