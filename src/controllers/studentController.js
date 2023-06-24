@@ -6,13 +6,13 @@ const SECRET_KEY = 'skldjfa;lsdj';
 // localhost:3000/student/:id
 
 const create = async (req, res) => {
-  // console.log(req.userId);
+  console.log(req.user);
   // res.status(200).json({ message: req.userId });
 
   let { bio, education } = req.body;
   try {
     let studentProfile = await prisma.studentProfile.create({
-      data: { bio: bio, education: education, userId: req.userId },
+      data: { bio: bio, education: education, userId: req.user.id },
     });
 
     res.status(201).json({ studentProfile: studentProfile });
