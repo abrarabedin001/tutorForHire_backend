@@ -3,9 +3,9 @@ POST http://localhost:5000/users/signup HTTP/1.1
 Content-Type: application/json
 
 { 
-  "name": "abrar5",
-  "email": "abrarabedin@google.com",
-  "password": "123456",
+  "name": "alo",
+  "email": "alo@gmail.com",
+  "password": "alo360",
   "type":"STUDENT"
 }
 
@@ -14,19 +14,19 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "abrarabedin@google.com",
-  "password": "123456"
+  "email": "alo@gmail.com",
+  "password": "alo360"
 }
 
 ###
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZvb2Jhc3NkZnIxQGV4YW1wbGUuY29tIiwiaWQiOiJkZjJkYzRmMC0xZDJkLTQ2ZmUtOTk4NS0wODYxODdmNThhMzIiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg3NjAwMTU2fQ.rKbV3n8WlAD63WpvD-m3wLps3PhL_mj7FM_NZm__HWc
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6IjNmODRkZjdjLWZjM2YtNDIzYS05NjE2LTg2MjhlMTk2MGJhOCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjM5OTJ9.KTa49cvMlaJtft1Lhnihk6KIB4Esx4D3uqGsMIy1KoI
 
 { 
-  "bio": "abrarabedin@google.com",
-  "education": "123456"
+  "bio": "ok bye",
+  "education": "8 pass"
 }
 
 
@@ -37,3 +37,52 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZvb2Jhc3
 
 
 # /customer/user_id
+###
+
+POST  http://localhost:5000/tutor/tutorcreate HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWszNjBAZ21haWwuY29tIiwiaWQiOiIyNTI3NTViMi00ZDJhLTQwYTEtOTU5Ny02NWU2YjM4YzcxOTciLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg3NjIzMzQ5fQ.AAMwOQGbUPVN66D0CbNDOYsP_UxzBtwd38CFKEgulKk
+
+{ 
+  "bio": "ulala",
+  "education": "no idea"
+}
+
+
+
+###
+
+PATCH   http://localhost:5000/tutor/tutorupdate HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWszNjBAZ21haWwuY29tIiwiaWQiOiIyNTI3NTViMi00ZDJhLTQwYTEtOTU5Ny02NWU2YjM4YzcxOTciLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg3NjIzMzQ5fQ.AAMwOQGbUPVN66D0CbNDOYsP_UxzBtwd38CFKEgulKk
+
+{ 
+  "password":"anik1200",
+  "bio": "abrarabedin@google.com",
+  "education": "123456"
+}
+
+
+
+# ###
+
+# DELETE   http://localhost:5000/tutor/tutordelete HTTP/1.1
+# Content-Type: application/json
+# Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lc3NpQGdtYWlsLmNvbSIsImlkIjoiNmIyMWVkZDctNWU1NC00ZGQwLTk3MzAtYmVmMjg1ODYwMjE3IiwidHlwZSI6IlRFQUNIRVIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY4NzYxNzg0NH0.iJKMzzRjr3nXb1TbM_JEUe_9NH9dfvsnhJdqVrAIh4Q
+
+# { 
+#   "password":"anik1200",
+#   "bio": "abrarabedin@google.com",
+#   "education": "123456"
+# }
+
+###
+
+PATCH   http://localhost:5000/student/update HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6IjNmODRkZjdjLWZjM2YtNDIzYS05NjE2LTg2MjhlMTk2MGJhOCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjM5OTJ9.KTa49cvMlaJtft1Lhnihk6KIB4Esx4D3uqGsMIy1KoI
+{ 
+  "password":"alo9009",
+  "bio": "daddy",
+  "education": "pro developer"
+}
