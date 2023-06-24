@@ -1,49 +1,20 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "Type" AS ENUM ('TEACHER', 'STUDENT');
 
-  - The primary key for the `Course` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the column `authorId` on the `Course` table. All the data in the column will be lost.
-  - The primary key for the `User` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the `Profile` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `teacherProfileId` to the `Course` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `password` to the `User` table without a default value. This is not possible if the table is not empty.
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
-*/
--- DropForeignKey
-ALTER TABLE "Course" DROP CONSTRAINT "Course_authorId_fkey";
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "name" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+    "password" TEXT NOT NULL,
+    "type" "Type",
 
--- DropForeignKey
-ALTER TABLE "Profile" DROP CONSTRAINT "Profile_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "_CategoryToCourse" DROP CONSTRAINT "_CategoryToCourse_B_fkey";
-
--- AlterTable
-ALTER TABLE "Course" DROP CONSTRAINT "Course_pkey",
-DROP COLUMN "authorId",
-ADD COLUMN     "address" TEXT,
-ADD COLUMN     "description" TEXT,
-ADD COLUMN     "endDate" TIMESTAMP(3),
-ADD COLUMN     "seatStatus" INTEGER,
-ADD COLUMN     "teacherProfileId" TEXT NOT NULL,
-ALTER COLUMN "id" DROP DEFAULT,
-ALTER COLUMN "id" SET DATA TYPE TEXT,
-ADD CONSTRAINT "Course_pkey" PRIMARY KEY ("id");
-DROP SEQUENCE "Course_id_seq";
-
--- AlterTable
-ALTER TABLE "User" DROP CONSTRAINT "User_pkey",
-ADD COLUMN     "password" TEXT NOT NULL,
-ALTER COLUMN "id" DROP DEFAULT,
-ALTER COLUMN "id" SET DATA TYPE TEXT,
-ADD CONSTRAINT "User_pkey" PRIMARY KEY ("id");
-DROP SEQUENCE "User_id_seq";
-
--- AlterTable
-ALTER TABLE "_CategoryToCourse" ALTER COLUMN "B" SET DATA TYPE TEXT;
-
--- DropTable
-DROP TABLE "Profile";
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "StudentProfile" (
@@ -68,12 +39,36 @@ CREATE TABLE "TeacherProfile" (
 );
 
 -- CreateTable
+CREATE TABLE "Course" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "published" BOOLEAN NOT NULL DEFAULT false,
+    "description" TEXT,
+    "seatStatus" INTEGER,
+    "address" TEXT,
+    "endDate" TIMESTAMP(3),
+    "teacherProfileId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "CourseEnroll" (
     "id" TEXT NOT NULL,
     "courseId" TEXT NOT NULL,
     "studentProfileId" TEXT,
 
     CONSTRAINT "CourseEnroll_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Category" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -86,6 +81,15 @@ CREATE TABLE "Chat" (
     CONSTRAINT "Chat_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_CategoryToCourse" (
+    "A" INTEGER NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "StudentProfile_userId_key" ON "StudentProfile"("userId");
 
@@ -94,6 +98,12 @@ CREATE UNIQUE INDEX "TeacherProfile_userId_key" ON "TeacherProfile"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Chat_teacherProfileId_studentProfileId_key" ON "Chat"("teacherProfileId", "studentProfileId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_CategoryToCourse_AB_unique" ON "_CategoryToCourse"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_CategoryToCourse_B_index" ON "_CategoryToCourse"("B");
 
 -- AddForeignKey
 ALTER TABLE "StudentProfile" ADD CONSTRAINT "StudentProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -115,6 +125,9 @@ ALTER TABLE "Chat" ADD CONSTRAINT "Chat_teacherProfileId_fkey" FOREIGN KEY ("tea
 
 -- AddForeignKey
 ALTER TABLE "Chat" ADD CONSTRAINT "Chat_studentProfileId_fkey" FOREIGN KEY ("studentProfileId") REFERENCES "StudentProfile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_CategoryToCourse" ADD CONSTRAINT "_CategoryToCourse_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_CategoryToCourse" ADD CONSTRAINT "_CategoryToCourse_B_fkey" FOREIGN KEY ("B") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;

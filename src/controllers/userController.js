@@ -9,24 +9,43 @@ const signup = async (req, res) => {
 
   // email,name,password = req.body
   // distructuring
+  console.log('signup hoche');
 
-  let { email, name, password } = req.body;
-  try {
-    // using bcrypt to hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+  let { email, name, password, type } = req.body;
+  console.log(req.body, email, name, password, type);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    //query databse
-    let user = await prisma.user.create({
-      data: { name: name, email: email, password: hashedPassword },
-    });
+  //query databse
+  let user = await prisma.user.create({
+    data: { name: name, email: email, password: hashedPassword, type: type },
+  });
 
-    // the token will be save in cookies (to see if signed in or not)
-    const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY);
+  // the token will be save in cookies (to see if signed in or not)
+  const token = jwt.sign(
+    { email: user.email, id: user.id, type: type, role: user.role },
+    SECRET_KEY,
+  );
 
-    res.status(201).json({ user: user, token: token });
-  } catch (err) {
-    res.status(404).json({ message: 'something went wrong', error: err });
-  }
+  res.status(201).json({ user: user, token: token });
+  // try {
+  //   // using bcrypt to hash password
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+
+  //   //query databse
+  //   let user = await prisma.user.create({
+  //     data: { name: name, email: email, password: hashedPassword, type: type },
+  //   });
+
+  //   // the token will be save in cookies (to see if signed in or not)
+  //   const token = jwt.sign(
+  //     { email: user.email, id: user.id, type: type, role: user.role },
+  //     SECRET_KEY,
+  //   );
+
+  //   res.status(201).json({ user: user, token: token });
+  // } catch (err) {
+  //   res.status(404).json({ message: 'something went wrong', error: err });
+  // }
 };
 
 const signin = async (req, res) => {

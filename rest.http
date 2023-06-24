@@ -3,9 +3,10 @@ POST http://localhost:5000/users/signup HTTP/1.1
 Content-Type: application/json
 
 { 
-  "name": "abrar",
-  "email": "abrarabedin@slkdjf1234.sdfj",
-  "password": "123456"
+  "name": "abrar5",
+  "email": "abrarabedin@slkdjf123457.sdfj",
+  "password": "123456",
+  "type":"STUDENT"
 }
 
 ###
