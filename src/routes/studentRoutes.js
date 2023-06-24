@@ -1,12 +1,12 @@
 const express = require('express');
 const prisma = require('../Database');
-const { create, signin } = require('../controllers/studentController');
+const { create, update,Delete } = require('../controllers/studentController');
 const auth = require('../middlewares/auth');
 
 const studentRouter = express.Router();
 
 studentRouter.post('/create', auth, create);
-studentRouter.post('/update', auth, create);
-studentRouter.post('/delete', auth, create);
+studentRouter.patch('/update', auth, update);
+studentRouter.delete('/delete', auth, Delete);
 
 module.exports = studentRouter;
