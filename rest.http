@@ -22,7 +22,7 @@ Content-Type: application/json
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFicmFyYWJlZGluQGdvb2dsZS5jb20iLCJpZCI6ImU2ODk0MWJjLTZmOTQtNGIwOS05NDFlLTViZjFjOGIzMDc2YSIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc1OTU4NTJ9.bEFKnxu83BZVzXLxfB8hoH3-HsCHmax0ohZlUKe5ULA
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZvb2Jhc3NkZnIxQGV4YW1wbGUuY29tIiwiaWQiOiJkZjJkYzRmMC0xZDJkLTQ2ZmUtOTk4NS0wODYxODdmNThhMzIiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg3NjAwMTU2fQ.rKbV3n8WlAD63WpvD-m3wLps3PhL_mj7FM_NZm__HWc
 
 { 
   "bio": "abrarabedin@google.com",
