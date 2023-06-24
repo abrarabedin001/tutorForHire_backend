@@ -2,6 +2,8 @@ const express = require('express');
 const userRouter = require('./routes/userRoutes');
 const tutorRouter = require('./routes/tutorRoutes');
 const studentRouter = require('./routes/studentRoutes');
+const courseRouter = require('./routes/courseRoutes');
+
 const app = express();
 
 const cors = require('cors');
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use('/users', userRouter);
 app.use('/tutor', tutorRouter);
 app.use('/student', studentRouter);
+app.use('/course',courseRouter)
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello');

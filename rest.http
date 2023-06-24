@@ -119,3 +119,16 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbW
   "bio": "daddy",
   "education": "pro developer"
 }
+
+
+
+//course
+
+###
+
+POST  http://localhost:5000/course/coursepost HTTP/1.1
+Content-Type: application/json
+
+{"title":"cse370-database","description":"description","seatStatus":5,
+            "address":"dhaka","endDate":"2020-04-05", "categories":"CSE"
+        }
