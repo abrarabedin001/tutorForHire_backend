@@ -27,6 +27,15 @@ const signup = async (req, res) => {
       { email: user.email, id: user.id, type: user.type, role: user.role },
       SECRET_KEY,
     );
+    res.cookie(`token`, token, {
+      maxAge: 5000,
+      // expires works the same as the maxAge
+      domain: 'localhost:3000/',
+      expires: new Date(Date.now() + 25892000000),
+      secure: true,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
 
     res.status(201).json({ user: user, token: token });
   } catch (err) {
@@ -52,6 +61,14 @@ const signin = async (req, res) => {
       { email: user.email, id: user.id, type: user.type, role: user.role },
       SECRET_KEY,
     );
+    res.cookie(`token`, token, {
+      maxAge: 5000,
+      // expires works the same as the maxAge
+      expires: new Date(Date.now() + 25892000000),
+      secure: true,
+      httpOnly: true,
+      sameSite: 'lax',
+    });
 
     res
       .status(200)

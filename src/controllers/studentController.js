@@ -6,7 +6,9 @@ const SECRET_KEY = 'skldjfa;lsdj';
 // localhost:3000/student/:id
 
 const create = async (req, res) => {
+  console.log('New Student');
   console.log(req.user);
+  console.log(req.body);
   // res.status(200).json({ message: req.userId });
 
   let { bio, education } = req.body;
