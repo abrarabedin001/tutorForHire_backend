@@ -61,12 +61,14 @@ model Course {
   seatStatus       Int?
   address          String?
   endDate          DateTime?
-  categories       Category[]
+  categories       String
   CourseEnroll     CourseEnroll[]
   teacherProfileId String
   TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id])
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
+
+  @@unique([title,teacherProfileId])
 }
 
 model CourseEnroll {
@@ -77,11 +79,7 @@ model CourseEnroll {
   Course           Course          @relation(fields: [courseId], references: [id])
 }
 
-model Category {
-  id     Int      @id @default(autoincrement())
-  name   String
-  course Course[]
-}
+
 
 model Chat {
   id               String          @id @default(uuid())
