@@ -130,8 +130,46 @@ POST  http://localhost:5000/course/coursepost HTTP/1.1
 Content-Type: application/json
 
 {
-  "title":"cse360-2022","description":"description","seatStatus":5,
+  "title":"eee111-2023","description":"description","seatStatus":5,
             "address":"dhaka","endDate":"2023-07-25T10:57:45.593Z",
-            "categories":"bsc in cse",
+            "categories":"eee",
             "teacherProfileId":"86436e04-c8ac-4814-910f-4849061cd55f"
         }
+
+###
+
+GET  http://localhost:5000/course/categories HTTP/1.1
+Content-Type: application/json
+
+{
+  "categories":"cse"
+}
+
+###
+
+GET  http://localhost:5000/course/showcourse HTTP/1.1
+Content-Type: application/json
+
+
+
+###
+
+PATCH   http://localhost:5000/course/courseupdate/c4ba8b9a-fb8b-439e-9b5c-6d0a1a3801f5 HTTP/1.1
+Content-Type: application/json
+
+{
+      "description": "phy111 faltu course",
+      "seatStatus": 100,
+      "address": "i love u",
+      "endDate": "2050-07-25T10:57:45.593Z"
+}
+//single course
+
+###
+
+GET  http://localhost:5000/course/singlecourse/c4ba8b9a-fb8b-439e-9b5c-6d0a1a3801f5 HTTP/1.1
+Content-Type: application/json
+
+
+
+###
