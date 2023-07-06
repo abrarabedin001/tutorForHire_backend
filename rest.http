@@ -142,7 +142,7 @@ GET  http://localhost:5000/course/categories HTTP/1.1
 Content-Type: application/json
 
 {
-  "categories":"cse"
+  "query":"phy"
 }
 
 ###
