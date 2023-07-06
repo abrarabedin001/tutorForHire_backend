@@ -130,9 +130,9 @@ POST  http://localhost:5000/course/coursepost HTTP/1.1
 Content-Type: application/json
 
 {
-  "title":"phy111-2023","description":"description","seatStatus":5,
+  "title":"eee111-2023","description":"description","seatStatus":5,
             "address":"dhaka","endDate":"2023-07-25T10:57:45.593Z",
-            "categories":"physics",
+            "categories":"eee",
             "teacherProfileId":"86436e04-c8ac-4814-910f-4849061cd55f"
         }
 
@@ -142,7 +142,7 @@ GET  http://localhost:5000/course/categories HTTP/1.1
 Content-Type: application/json
 
 {
-  "categories":"bsc in cse"
+  "categories":"cse"
 }
 
 ###
