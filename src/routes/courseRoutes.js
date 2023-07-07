@@ -7,13 +7,15 @@
 
 const express = require('express');
 const prisma = require('../Database');
-const { courseGet,coursePost}  = require('../controllers/courseController');
+const { courseGet,courseSearch,singleCourse,courseDelete,coursePatch,coursePost}  = require('../controllers/courseController');
 const auth = require('../middlewares/auth');
 
 const courseRouter = express.Router();
-courseRouter.get('/courseget',courseGet)
-// courseRouter.patch('/courseupdate',coursePatch)
-// courseRouter.delete('/coursedelete',courseDelete)
+courseRouter.get('/categories',courseSearch)
+courseRouter.get('/showcourse',courseGet)
+courseRouter.get('/singlecourse/:id',singleCourse)
+courseRouter.patch('/courseupdate/:id',coursePatch)
+courseRouter.delete('/coursedelete',courseDelete)
 courseRouter.post('/coursepost',coursePost)
 
 
