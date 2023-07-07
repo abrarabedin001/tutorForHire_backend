@@ -31,14 +31,23 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 //search using categories
 const courseSearch = async (req, res) => {
-  let { categories } = req.body;
+  let { query } = req.body;
 
   try {
     let coursedetails = await prisma.course.findMany({
       where: {
-        categories: {
-          contains: categories
-        },
+        OR: [
+          {
+            title: {
+              contains: query
+            }
+          },
+          {
+            categories: {
+              contains: query
+            }
+          }
+        ]
       },
       orderBy: {
         createdAt: 'desc'
@@ -50,6 +59,7 @@ const courseSearch = async (req, res) => {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
+
 
 
 //for all courses page
