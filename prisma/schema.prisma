@@ -35,7 +35,7 @@ model StudentProfile {
   id           String         @id @default(uuid())
   bio          String
   education    String
-  user         User           @relation(fields: [userId], references: [id])
+  user         User           @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId       String         @unique
   CourseEnroll CourseEnroll[]
   Chat         Chat[]
@@ -48,7 +48,7 @@ model TeacherProfile {
   id        String   @id @default(uuid())
   bio       String
   education String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId    String   @unique
   Course    Course[]
   Chat      Chat[]
@@ -68,7 +68,7 @@ model Course {
   Rating           Rating[]
   Review           Review[]
   teacherProfileId String
-  TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id])
+  TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id],onDelete: Cascade)
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 
@@ -78,9 +78,9 @@ model Course {
 model CourseEnroll {
   id               String          @id @default(uuid())
   courseId         String
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
   studentProfileId String?
-  Course           Course          @relation(fields: [courseId], references: [id])
+  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Chat {
@@ -97,8 +97,8 @@ model Chat {
 model Rating {
   id               String          @id @default(uuid())
   courseId         String
-  Course           Course          @relation(fields: [courseId], references: [id])
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  Course           Course          @relation(fields: [courseId], references: [id],onDelete: Cascade)
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
   studentProfileId String?
   rate             Int
 
@@ -108,8 +108,8 @@ model Rating {
 model Review {
   id               String          @id @default(uuid())
   courseId         String
-  Course           Course          @relation(fields: [courseId], references: [id])
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  Course           Course          @relation(fields: [courseId], references: [id],onDelete: Cascade)
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
   studentProfileId String?
   comment          String
   reviewDate       DateTime        @default(now())

@@ -24,7 +24,7 @@ courseRouter.get('/showcourse', courseGet);
 courseRouter.get('/showcourse/:id', courseGetPersonal);
 courseRouter.get('/singlecourse/:id', singleCourse);
 courseRouter.patch('/courseupdate/:id', auth, coursePatch);
-courseRouter.delete('/coursedelete', auth, courseDelete);
+courseRouter.delete('/coursedelete/:id', auth, courseDelete);
 courseRouter.post('/coursepost', auth, coursePost);
 
 module.exports = courseRouter;
