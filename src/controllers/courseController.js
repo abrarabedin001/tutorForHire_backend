@@ -157,15 +157,16 @@ const coursePatch = async (req, res) => {
 
 const courseDelete = async (req, res) => {
   const id = req.params.id;
-  let coursedelete = await prisma.course.delete({
-    where :{
-      id:id
-    }
-  });
-  console.log(coursedelete)
 
-  res.status(201).json({ coursedelete: coursedelete });
   try {
+    let coursedelete = await prisma.course.delete({
+      where :{
+        id:id
+      }
+    });
+    console.log(coursedelete)
+  
+    res.status(201).json({ coursedelete: coursedelete });
 
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
