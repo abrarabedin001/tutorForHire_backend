@@ -2,7 +2,7 @@ const prisma = require('../Database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
-
+//
 //course insert or create
 const coursePost = async (req, res) => {
   console.log('course post');
@@ -88,6 +88,7 @@ const courseGet = async (req, res) => {
 };
 //for single teacher
 const courseGetPersonal = async (req, res) => {
+
   try {
     let { id } = req.params;
     let courseshow = await prisma.course.findMany({
@@ -102,6 +103,7 @@ const courseGetPersonal = async (req, res) => {
         createdAt: 'desc',
       },
     });
+
     res.status(201).json({ courseshow: courseshow });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -175,4 +177,5 @@ module.exports = {
   courseSearch,
   courseDelete,
   coursePatch,
+  courseGetPersonal
 };
