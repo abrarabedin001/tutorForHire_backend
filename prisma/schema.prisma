@@ -81,6 +81,8 @@ model CourseEnroll {
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
   studentProfileId String?
   Course           Course          @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, studentProfileId])
 }
 
 model Chat {
