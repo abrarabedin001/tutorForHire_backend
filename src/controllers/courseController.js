@@ -5,68 +5,37 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 //course insert or create
 const coursePost = async (req, res) => {
-  let {
-    title,
-    description,
-    seatStatus,
-    address,
-    endDate,
-    categories,
-    teacherProfileId,
-  } = req.body;
-  endDate = new Date(endDate);
-  console.log(req.body.teacherProfileId);
-  let getTeacherUser = await prisma.user.findUnique({
-    where: {
-      id: req.body.teacherProfileId,
-    },
-    include: {
-      TeacherProfile: true,
-    },
-  });
-  // console.log(getTeacherId);
-  let courseCreate = await prisma.course.create({
-    data: {
-      title: title,
-      description: description,
-      seatStatus: seatStatus,
-      address: address,
-      endDate: endDate,
-      categories: categories,
-      TeacherProfile: {
-        connect: {
-          userId: teacherProfileId,
+  try {
+    let {
+      title,
+      description,
+      seatStatus,
+      address,
+      endDate,
+      categories,
+      teacherProfileId,
+    } = req.body;
+    endDate = new Date(endDate);
+
+    let courseCreate = await prisma.course.create({
+      data: {
+        title: title,
+        description: description,
+        seatStatus: seatStatus,
+        address: address,
+        endDate: endDate,
+        categories: categories,
+        TeacherProfile: {
+          connect: {
+            userId: teacherProfileId,
+          },
         },
       },
-    },
-  });
-
-  // console.log(data);
-  // console.log(courseCreate);
-  res.status(201).json({ courseCreate: courseCreate });
-  // try {
-  //   let courseCreate = await prisma.course.create({
-  //     data: {
-  //       title: title,
-  //       description: description,
-  //       seatStatus: seatStatus,
-  //       address: address,
-  //       endDate: endDate,
-  //       categories: categories,
-  //       TeacherProfile: {
-  //         connect: {
-  //           id: teacherProfileId,
-  //         },
-  //       },
-  //     },
-  //   });
-
-  //   // console.log(data);
-  //   console.log(courseCreate);
-  //   res.status(201).json({ courseCreate: courseCreate });
-  // } catch (err) {
-  //   res.status(404).json({ message: 'something went wrong', error: err });
-  // }
+    });
+    res.status(201).json({ courseCreate: courseCreate });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
 };
 
 //search using categories
