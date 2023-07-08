@@ -39,6 +39,8 @@ model StudentProfile {
   userId       String         @unique
   CourseEnroll CourseEnroll[]
   Chat         Chat[]
+  Rating       Rating[]
+  Review      Review[]
   chatId       String?
 }
 
@@ -63,6 +65,8 @@ model Course {
   endDate          DateTime?
   categories       String
   CourseEnroll     CourseEnroll[]
+  Rating           Rating[]
+  Review      Review[]
   teacherProfileId String
   TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id])
   createdAt        DateTime       @default(now())
@@ -83,11 +87,38 @@ model CourseEnroll {
 
 model Chat {
   id               String          @id @default(uuid())
-  teacher          TeacherProfile? @relation(fields: [teacherProfileId], references: [id])
-  student          StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  TeacherProfile   TeacherProfile? @relation(fields: [teacherProfileId], references: [id])
+  StudentProfile    StudentProfile? @relation(fields: [studentProfileId], references: [id])
   created_at       DateTime        @default(now())
   teacherProfileId String
   studentProfileId String
 
   @@unique([teacherProfileId, studentProfileId])
 }
+
+
+model Rating {
+  id               String          @id @default(uuid())
+  courseId         String
+  Course           Course          @relation(fields: [courseId], references: [id])
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  studentProfileId String?
+  rate    Int
+
+  @@unique([courseId, studentProfileId])
+}
+
+
+model Review {
+  id               String          @id @default(uuid())
+  courseId         String
+  Course           Course          @relation(fields: [courseId], references: [id])
+  StudentProfile           StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  studentProfileId String?
+  comment String
+  reviewDate      DateTime       @default(now())
+
+  @@unique([courseId, studentProfileId])
+}
+
+

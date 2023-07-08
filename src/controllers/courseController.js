@@ -2,7 +2,7 @@ const prisma = require('../Database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
-
+//
 //course insert or create
 const coursePost = async (req, res) => {
   try {
