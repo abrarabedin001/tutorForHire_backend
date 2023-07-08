@@ -156,14 +156,18 @@ const coursePatch = async (req, res) => {
 //course delete
 
 const courseDelete = async (req, res) => {
-  try {
-    let courseshow = await prisma.course.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+  const id = req.params.id;
 
-    res.status(201).json({ courseshow: courseshow });
+  try {
+    let coursedelete = await prisma.course.delete({
+      where :{
+        id:id
+      }
+    });
+    console.log(coursedelete)
+  
+    res.status(201).json({ coursedelete: coursedelete });
+
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
