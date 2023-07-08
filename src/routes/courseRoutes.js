@@ -13,6 +13,7 @@ const {
   courseDelete,
   coursePatch,
   coursePost,
+  courseGetPersonal,
 } = require('../controllers/courseController');
 const auth = require('../middlewares/auth');
 
