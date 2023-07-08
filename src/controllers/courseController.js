@@ -111,15 +111,16 @@ const courseGetPersonal = async (req, res) => {
 //singleCourse
 
 const singleCourse = async (req, res) => {
+  console.log('get single course');
   const id = req.params.id;
+  let course = await prisma.course.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  console.log(id);
+  res.status(201).json({ course: course });
   try {
-    let course = await prisma.course.findUnique({
-      where: {
-        id: id,
-      },
-    });
-
-    res.status(201).json({ course: course });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -127,8 +128,10 @@ const singleCourse = async (req, res) => {
 
 //course update
 const coursePatch = async (req, res) => {
+  console.log('course patch----------------');
   let { description, seatStatus, address, endDate } = req.body;
   const id = req.params.id;
+
   try {
     let courseupdate = await prisma.course.update({
       where: {
@@ -138,7 +141,7 @@ const coursePatch = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
-        endDate: endDate,
+        endDate: new Date(endDate),
       },
     });
 
