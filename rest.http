@@ -189,17 +189,18 @@ Content-Type: application/json
 
 POST  http://localhost:5000/enrollcourse/enroll HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6ImFiOTM2OWFhLWM0Y2YtNDQ5Yi1hMjFmLTM3ZGQ2NWQ4ODBmMCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjgwNDV9.Xgo7zmykWY_aqR5vBDKVPGh_lnHc6PHdUzHG56Ua_P0
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
 
 {
   "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491",
-  "courseId":"9eeb036e-43ab-449a-b439-334ebe7b41d5"
+  "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1"
 }
 
 
 ###
 GET   http://localhost:5000/enrollcourse/enrolledcourses HTTP/1.1
 Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
 
 {
   "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491"
