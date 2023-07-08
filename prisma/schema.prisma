@@ -80,7 +80,12 @@ model CourseEnroll {
   courseId         String
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
   studentProfileId String?
+
   Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+
+  @@unique([courseId, studentProfileId])
+
 }
 
 model Chat {

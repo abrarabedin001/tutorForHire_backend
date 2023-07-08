@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
 const giveRating = async (req, res) => {
-  let { studentProfileId, courseId, rate } = req.body;
+  let { courseId, rate } = req.body;
+  console.log(req.body);
+  console.log('give rating');
   const user = await prisma.user.findUnique({
     where: { id: req.user.id },
     include: { StudentProfile: true },
