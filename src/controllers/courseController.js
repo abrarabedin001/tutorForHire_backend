@@ -86,17 +86,11 @@ const courseGet = async (req, res) => {
 };
 //for single teacher
 const courseGetPersonal = async (req, res) => {
+
   console.log('get courses');
   let {id}=req.params
   try {
-    let courseshow = await prisma.course.findMany({
-      where:{
-        cr
-      }
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    let courseshow = await prisma.course.findMany()
 
     res.status(201).json({ courseshow: courseshow });
   } catch (err) {
@@ -167,4 +161,5 @@ module.exports = {
   courseSearch,
   courseDelete,
   coursePatch,
+  courseGetPersonal
 };
