@@ -44,6 +44,7 @@ const signup = async (req, res) => {
 };
 
 const signin = async (req, res) => {
+  console.log('sign in kaj kore');
   let { email, password } = req.body;
   try {
     const user = await prisma.user.findUnique({ where: { email } });

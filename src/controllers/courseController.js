@@ -3,31 +3,40 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
+//course insert or create
+const coursePost = async (req, res) => {
+  try {
+    let {
+      title,
+      description,
+      seatStatus,
+      address,
+      endDate,
+      categories,
+      teacherProfileId,
+    } = req.body;
+    endDate = new Date(endDate);
 
-  //course insert or create
-  const coursePost = async (req, res) => {
-    let {title,description,seatStatus,address,endDate, categories, teacherProfileId }=req.body
-    try {
     let courseCreate = await prisma.course.create({
-        data :{title:title,description:description,seatStatus:seatStatus,
-            address:address,endDate:endDate, categories:categories,
-            TeacherProfile:{
-                connect:{
-                  id: teacherProfileId
-                }
-            }
-        }
-      });
-
-      
-      // console.log(data);
-      console.log(courseCreate)
-      res.status(201).json({ courseCreate: courseCreate });
-    } catch (err) {
-      res.status(404).json({ message: 'something went wrong', error: err });
-    }
-  };
-
+      data: {
+        title: title,
+        description: description,
+        seatStatus: seatStatus,
+        address: address,
+        endDate: endDate,
+        categories: categories,
+        TeacherProfile: {
+          connect: {
+            userId: teacherProfileId,
+          },
+        },
+      },
+    });
+    res.status(201).json({ courseCreate: courseCreate });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
 
 //search using categories
 const courseSearch = async (req, res) => {
@@ -39,19 +48,19 @@ const courseSearch = async (req, res) => {
         OR: [
           {
             title: {
-              contains: query
-            }
+              contains: query,
+            },
           },
           {
             categories: {
-              contains: query
-            }
-          }
-        ]
+              contains: query,
+            },
+          },
+        ],
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     });
     console.log(coursedetails);
     res.status(201).json({ coursedetails: coursedetails });
@@ -60,16 +69,13 @@ const courseSearch = async (req, res) => {
   }
 };
 
-
-
 //for all courses page
 const courseGet = async (req, res) => {
-
   try {
     let courseshow = await prisma.course.findMany({
-      orderBy:{
-        createdAt:'desc'
-      }
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     res.status(201).json({ courseshow: courseshow });
@@ -78,16 +84,15 @@ const courseGet = async (req, res) => {
   }
 };
 
-
 //singleCourse
 
 const singleCourse = async (req, res) => {
   const id = req.params.id;
   try {
     let course = await prisma.course.findUnique({
-      where:{
-        id:id
-      }
+      where: {
+        id: id,
+      },
     });
 
     res.status(201).json({ course: course });
@@ -96,41 +101,37 @@ const singleCourse = async (req, res) => {
   }
 };
 
-
 //course update
 const coursePatch = async (req, res) => {
-
-  let {description,seatStatus,address,endDate }=req.body
+  let { description, seatStatus, address, endDate } = req.body;
   const id = req.params.id;
   try {
     let courseupdate = await prisma.course.update({
-      where:{
-        id:id
+      where: {
+        id: id,
       },
-      data:{
-        description:description,
-        seatStatus:seatStatus,
-        address:address,
-        endDate:endDate
-      }
+      data: {
+        description: description,
+        seatStatus: seatStatus,
+        address: address,
+        endDate: endDate,
+      },
     });
 
-    res.status(201).json({ courseupdate: courseupdate});
+    res.status(201).json({ courseupdate: courseupdate });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-
 //course delete
 
 const courseDelete = async (req, res) => {
-
   try {
     let courseshow = await prisma.course.findMany({
-      orderBy:{
-        createdAt:'desc'
-      }
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     res.status(201).json({ courseshow: courseshow });
@@ -139,4 +140,11 @@ const courseDelete = async (req, res) => {
   }
 };
 
-module.exports = { courseGet,coursePost,singleCourse,courseSearch,courseDelete,coursePatch};
+module.exports = {
+  courseGet,
+  coursePost,
+  singleCourse,
+  courseSearch,
+  courseDelete,
+  coursePatch,
+};
