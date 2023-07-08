@@ -71,8 +71,28 @@ const courseSearch = async (req, res) => {
 
 //for all courses page
 const courseGet = async (req, res) => {
+  console.log('get courses');
   try {
     let courseshow = await prisma.course.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(201).json({ courseshow: courseshow });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+//for single teacher
+const courseGetPersonal = async (req, res) => {
+  console.log('get courses');
+  let {id}=req.params
+  try {
+    let courseshow = await prisma.course.findMany({
+      where:{
+        cr
+      }
       orderBy: {
         createdAt: 'desc',
       },
