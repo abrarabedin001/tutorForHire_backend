@@ -19,6 +19,7 @@ const auth = require('../middlewares/auth');
 const courseRouter = express.Router();
 courseRouter.get('/categories', courseSearch);
 courseRouter.get('/showcourse', courseGet);
+courseRouter.get('/showcourse/:id', courseGetPersonal);
 courseRouter.get('/singlecourse/:id', singleCourse);
 courseRouter.patch('/courseupdate/:id', coursePatch);
 courseRouter.delete('/coursedelete', auth, courseDelete);
