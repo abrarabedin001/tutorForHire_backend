@@ -25,58 +25,55 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   let { password, bio, education } = req.body;
-  console.log(req.user.id)
-//   console.log(req.user.password)
+  console.log(req.user.id);
+  //   console.log(req.user.password)
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const updateStudent = await prisma.studentProfile.update({
       where: {
-        userId:req.user.id
+        userId: req.user.id,
       },
       data: {
-        user:{
-            update:{
-                password:hashedPassword
-            }
+        user: {
+          update: {
+            password: hashedPassword,
+          },
         },
-        bio:bio,
-        education:education
+        bio: bio,
+        education: education,
       },
-    })
-    console.log(updateStudent)
-    console.log(password)
+    });
+    console.log(updateStudent);
+    console.log(password);
     res.status(201).json({ updateStudent: updateStudent });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
-
 };
-
-
 
 //not done yet
 const Delete = async (req, res) => {
-  let { bio,education } = req.body;
+  let { bio, education } = req.body;
   try {
     const deleteStudent = await prisma.studentProfile.delete({
-      where: OR [ {
-        userId:req.user.id,
+      where:
+        OR[
+          ({
+            userId: req.user.id,
+          },
+          {
+            email: req.user.email,
+          })
+        ],
+      data: {
+        bio: bio,
+        education: education,
       },
-      {
-        email:req.user.email
-      }
-    ],
-    data:{
-      bio:bio,
-      education:education
-    }
-    })
+    });
     res.status(201).json({ deleteStudent: deleteStudent });
-
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-
-module.exports = { create,update,Delete};
+module.exports = { create, update, Delete };
