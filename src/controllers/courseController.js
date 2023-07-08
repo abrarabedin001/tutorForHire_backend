@@ -71,6 +71,7 @@ const courseSearch = async (req, res) => {
 
 //for all courses page
 const courseGet = async (req, res) => {
+  console.log('get courses');
   try {
     let courseshow = await prisma.course.findMany({
       orderBy: {
