@@ -5,6 +5,8 @@ const SECRET_KEY = 'skldjfa;lsdj';
 //
 //course insert or create
 const coursePost = async (req, res) => {
+  console.log('course post');
+  console.log(req.body);
   try {
     let {
       title,
@@ -87,10 +89,20 @@ const courseGet = async (req, res) => {
 //for single teacher
 const courseGetPersonal = async (req, res) => {
 
-  console.log('get courses');
-  let {id}=req.params
   try {
-    let courseshow = await prisma.course.findMany()
+    let { id } = req.params;
+    let courseshow = await prisma.course.findMany({
+      where: {
+        TeacherProfile: {
+          is: {
+            userId: id,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
 
     res.status(201).json({ courseshow: courseshow });
   } catch (err) {
@@ -101,15 +113,16 @@ const courseGetPersonal = async (req, res) => {
 //singleCourse
 
 const singleCourse = async (req, res) => {
+  console.log('get single course');
   const id = req.params.id;
+  let course = await prisma.course.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  console.log(id);
+  res.status(201).json({ course: course });
   try {
-    let course = await prisma.course.findUnique({
-      where: {
-        id: id,
-      },
-    });
-
-    res.status(201).json({ course: course });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -117,8 +130,10 @@ const singleCourse = async (req, res) => {
 
 //course update
 const coursePatch = async (req, res) => {
+  console.log('course patch----------------');
   let { description, seatStatus, address, endDate } = req.body;
   const id = req.params.id;
+
   try {
     let courseupdate = await prisma.course.update({
       where: {
@@ -128,7 +143,7 @@ const coursePatch = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
-        endDate: endDate,
+        endDate: new Date(endDate),
       },
     });
 
@@ -156,6 +171,7 @@ const courseDelete = async (req, res) => {
 
 module.exports = {
   courseGet,
+  courseGetPersonal,
   coursePost,
   singleCourse,
   courseSearch,
