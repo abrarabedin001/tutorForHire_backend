@@ -9,6 +9,7 @@ const courseEnroll = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
+  console.log('endroll user');
   try {
     const courseEnrollment = await prisma.courseEnroll.create({
       data: {
@@ -28,10 +29,14 @@ const enrolledCourse = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
+  console.log('Enroll is working');
   try {
     const enrolledCourses = await prisma.courseEnroll.findMany({
       where: {
         studentProfileId: user.StudentProfile.id,
+      },
+      include: {
+        Course: true,
       },
     });
     console.log(enrolledCourses);
@@ -42,14 +47,25 @@ const enrolledCourse = async (req, res) => {
 };
 
 const courseUnenroll = async (req, res) => {
-  let { id } = req.body;
+  let { id1, id2 } = req.params;
+
   try {
+    console.log(id1, id2);
+    // console.log(req.user.id);
+    console.log('course unenroll');
+    let user = await prisma.user.findUnique({
+      where: { id: id2 },
+      include: { StudentProfile: true },
+    });
+    console.log(user);
     const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
       where: {
-        id: id,
+        courseId: id1,
+        studentProfileId: user.StudentProfile.id,
       },
     });
-    res.status(201).json({ deletedCourseEnroll: deletedCourseEnroll });
+    console.log(deletedCourseEnroll);
+    res.status(204);
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
