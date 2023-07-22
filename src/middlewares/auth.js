@@ -15,9 +15,10 @@ const auth = (req, res, next) => {
     }
     next();
   } catch (error) {
-    console.log('---------------------');
-    console.log(req.headers.authorization);
-    console.log(error);
+    // console.log('---------------------');
+    // console.log(req.headers.authorization);
+    // console.log(error);
+    res.status(401).json({message: "Unauthorised User"})
   }
 };
 module.exports = auth;

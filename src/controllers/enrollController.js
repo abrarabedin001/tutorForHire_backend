@@ -71,4 +71,102 @@ const courseUnenroll = async (req, res) => {
   }
 };
 
-module.exports = { courseEnroll, enrolledCourse, courseUnenroll };
+
+// use kickout button
+const studentKickout = async (req, res) => {
+ 
+  const{courseid,studentProfileId}=req.body;
+  
+  try {
+    console.log("dhur hoi na ken")
+  // Find the teacher's profile based on the authenticated userId.
+  const teacherProfile = await prisma.teacherProfile.findUnique({
+    where: {
+      userId: req.user.id,
+    },
+  });
+
+  console.log(req.user,teacherProfile)
+
+  // Find the course created by the teacher and verify its ownership.
+  const findcourse = await prisma.course.findFirst({
+    where: {
+      AND: [
+      {
+        id: courseid
+      },
+      {
+        teacherProfileId: teacherProfile.id
+      }
+    ],
+    },
+  });
+  console.log(findcourse)
+  // Now, delete the student enrollment.
+  const kickout=await prisma.courseEnroll.deleteMany({
+    where: {
+      AND: [
+        {
+          courseId: findcourse.id
+        },
+        {
+          studentProfileId: studentProfileId
+        }
+      ],
+    },
+  });
+  console.log(kickout)
+
+    res.status(201).json({ kickout: kickout });
+  } catch (err) {
+    res.status(404).json({ message: 'Something went wrong.', error: err });
+  }
+};
+
+
+//students who enroll
+
+const enrolledStudents = async (req, res) => {
+  const{courseid}=req.body;
+  try {
+    console.log("thik hae vai")
+    // Find the teacher's profile based on the authenticated userId.
+    const teacherProfile = await prisma.teacherProfile.findUnique({
+      where: {
+        userId: req.user.id,
+      },
+    });
+
+    console.log(req.user,teacherProfile)
+
+    // Find the course created by the teacher and verify its ownership.
+    const checkcourse = await prisma.course.findFirst({
+      where: {
+        AND: [
+        {
+          id: courseid
+        },
+        {
+          teacherProfileId: teacherProfile.id
+        }
+      ],
+      },
+    });
+
+    // Now, delete the student enrollment.
+    const allstudents=await prisma.courseEnroll.findMany({
+      where: {
+        courseId: checkcourse.id,
+      },
+    });
+    console.log(allstudents)
+    res.status(201).json({ message: allstudents });
+  }catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+
+
+
+module.exports = { courseEnroll, studentKickout,enrolledCourse, courseUnenroll, enrolledStudents };
