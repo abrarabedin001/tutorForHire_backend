@@ -3,9 +3,9 @@ POST http://localhost:5000/users/signup HTTP/1.1
 Content-Type: application/json
 
 { 
-  "name": "akij",
-  "email": "akij@gmail.com",
-  "password": "akik360",
+  "name": "anik54",
+  "email": "anik54@gmail.com",
+  "password": "anik5454",
   "type":"STUDENT"
 }
 
@@ -26,11 +26,11 @@ Content-Type: application/json
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
 
 { 
   "bio": "hello everyone",
-  "education": "fail"
+  "education": "hello"
 }
 
 ###
@@ -49,20 +49,12 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "anik@gmail.com",
-  "password": "abrar420"
+  "email": "faizan@gmail.com",
+  "password": "faizan360"
 }
 
 ###
 
-POST  http://localhost:5000/student/create HTTP/1.1
-Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImlkIjoiN2JmZjFkYjQtNmE5Yi00NTA3LTg5YzgtMjAyZDJkNmE0MzZkIiwidHlwZSI6IlNUVURFTlQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY4ODgzODg2NX0.8PoA38u7np7BpEoW1wWMI5xglVCx5Qf9uN9Ko2ARA_c
-
-{ 
-  "bio": "2222",
-  "education": "8 pass"
-}
 
 
 
@@ -148,7 +140,7 @@ Content-Type: application/json
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6ImFiOTM2OWFhLWM0Y2YtNDQ5Yi1hMjFmLTM3ZGQ2NWQ4ODBmMCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjgwNDV9.Xgo7zmykWY_aqR5vBDKVPGh_lnHc6PHdUzHG56Ua_P0
 
 {
-  "query":"phy"
+  "query":"cse"
 }
 
 ###
@@ -212,6 +204,31 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ2
   "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491"
 }
 
+
+
+//show enrolled students
+###
+GET   http://localhost:5000/enrollcourse/enrollstudents HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjVkOTQwZWI1LWQ4NzktNDI2Mi05OWQ0LTIyNDdiMWEzZTJlYyIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTAwNTIxNTN9.4CXwzWx9HQG2ArEmy6z-kYnWWrkjeCIwwPU_xOec6Po
+
+{
+  "courseid":"8909b4c2-f5ab-4ed5-80fa-c73f1c707e87"
+}
+
+//kickout a student
+###
+DELETE  http://localhost:5000/enrollcourse/kickout HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjVkOTQwZWI1LWQ4NzktNDI2Mi05OWQ0LTIyNDdiMWEzZTJlYyIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTAwNTIxNTN9.4CXwzWx9HQG2ArEmy6z-kYnWWrkjeCIwwPU_xOec6Po
+
+{
+  "courseid":"8909b4c2-f5ab-4ed5-80fa-c73f1c707e87",
+   "studentProfileId": "2adb4a20-a45e-444e-ba6d-1004bdeb07eb"
+}
+
+
+
 ###
 DELETE   http://localhost:5000/enrollcourse/unenroll HTTP/1.1
 Content-Type: application/json
@@ -224,12 +241,12 @@ Content-Type: application/json
 ###
 POST   http://localhost:5000/review/givereview HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
 
 {
-      "studentProfileId":"520a06a1-9c2a-433d-bddd-b3b1bda70a1d",
-      "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1",
-      "comment":"baler course"
+      "studentProfileId":"469f1b3d-ead7-4938-bdbe-2adc8c7e74c2",
+      "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
+      "comment":"best course so far 2"
 }
 
 
@@ -239,7 +256,7 @@ GET    http://localhost:5000/review/seereview HTTP/1.1
 Content-Type: application/json
 
 {
-      "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277"
+      "courseId":"296591aa-2941-470e-b037-a4fab66bf398"
 }
 
 
@@ -251,12 +268,12 @@ Content-Type: application/json
 ###
 POST   http://localhost:5000/rating/giverating HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
 
 {
       "studentProfileId":"8adaa07a-5e7b-4c3f-9bb5-ec83300df632",
-      "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1",
-      "rate":3
+      "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
+      "rate":4
 }
 
 
@@ -266,7 +283,7 @@ GET    http://localhost:5000/rating/seerating HTTP/1.1
 Content-Type: application/json
 
 {
-      "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277"
+      "courseId":"296591aa-2941-470e-b037-a4fab66bf398"
 }
 
 
