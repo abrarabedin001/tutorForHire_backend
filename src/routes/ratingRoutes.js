@@ -6,5 +6,5 @@ const auth = require('../middlewares/auth');
 const ratingRouter = express.Router();
 
 ratingRouter.post('/giverating', auth, giveRating);
-ratingRouter.get('/seerating',seeRating);
+ratingRouter.get('/seerating/:id1',seeRating);
 module.exports = ratingRouter;

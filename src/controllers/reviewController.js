@@ -29,15 +29,15 @@ const giveReview = async (req, res) => {
 };
 
 const seeReview = async (req, res) => {
-  let { courseId } = req.body;
+  let { id1 } = req.params;
   console.log(req.body);
   console.log('asked for commentsssss-------------');
-  console.log(courseId);
+  console.log(id1);
 
   try {
     const review = await prisma.review.findMany({
       where: {
-        courseId: courseId,
+        courseId: id1,
       },
       orderBy: {
         reviewDate: 'desc',

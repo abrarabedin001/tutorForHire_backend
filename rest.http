@@ -208,13 +208,10 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ2
 
 //show enrolled students
 ###
-GET   http://localhost:5000/enrollcourse/enrollstudents HTTP/1.1
+GET   http://localhost:5000/enrollcourse/enrolledstudents/8909b4c2-f5ab-4ed5-80fa-c73f1c707e87 HTTP/1.1
 Content-Type: application/json
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjVkOTQwZWI1LWQ4NzktNDI2Mi05OWQ0LTIyNDdiMWEzZTJlYyIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTAwNTIxNTN9.4CXwzWx9HQG2ArEmy6z-kYnWWrkjeCIwwPU_xOec6Po
 
-{
-  "courseid":"8909b4c2-f5ab-4ed5-80fa-c73f1c707e87"
-}
 
 //kickout a student
 ###
@@ -252,12 +249,8 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NE
 
 
 ###
-GET    http://localhost:5000/review/seereview HTTP/1.1
+GET    http://localhost:5000/review/seereview/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
 Content-Type: application/json
-
-{
-      "courseId":"296591aa-2941-470e-b037-a4fab66bf398"
-}
 
 
 
@@ -279,11 +272,7 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NE
 
 
 ###
-GET    http://localhost:5000/rating/seerating HTTP/1.1
+GET    http://localhost:5000/rating/seerating/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
 Content-Type: application/json
-
-{
-      "courseId":"296591aa-2941-470e-b037-a4fab66bf398"
-}
 
 
