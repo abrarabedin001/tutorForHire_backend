@@ -236,43 +236,47 @@ Content-Type: application/json
 
 //review
 ###
-POST   http://localhost:5000/review/givereview HTTP/1.1
+POST   http://localhost:5000/ratingreview/giveratingreview HTTP/1.1
 Content-Type: application/json
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
 
 {
       "studentProfileId":"469f1b3d-ead7-4938-bdbe-2adc8c7e74c2",
       "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
-      "comment":"best course so far 2"
+      "comment":"best course so far 2",
+      "rate":5
 }
 
 
 
+# ###
+# GET    http://localhost:5000/review/seereview/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
+# Content-Type: application/json
+
+
+
+
+
+# //rating
+
+# ###
+# POST   http://localhost:5000/rating/giverating HTTP/1.1
+# Content-Type: application/json
+# Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
+
+# {
+#       "studentProfileId":"8adaa07a-5e7b-4c3f-9bb5-ec83300df632",
+#       "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
+#       "rate":4
+# }
+
+
+
 ###
-GET    http://localhost:5000/review/seereview/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
+GET    http://localhost:5000/ratingreview/seetotalrating/296591aa-2941-470e-b037-a4fab66bf398 HTTP/1.1
 Content-Type: application/json
 
-
-
-
-
-//rating
-
 ###
-POST   http://localhost:5000/rating/giverating HTTP/1.1
+GET    http://localhost:5000/ratingreview/showratingreview/296591aa-2941-470e-b037-a4fab66bf398 HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
-
-{
-      "studentProfileId":"8adaa07a-5e7b-4c3f-9bb5-ec83300df632",
-      "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
-      "rate":4
-}
-
-
-
-###
-GET    http://localhost:5000/rating/seerating/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
-Content-Type: application/json
-
 

@@ -39,8 +39,7 @@ model StudentProfile {
   userId       String         @unique
   CourseEnroll CourseEnroll[]
   Chat         Chat[]
-  Rating       Rating[]
-  Review       Review[]
+  RatingReview RatingReview[]
   chatId       String?
 }
 
@@ -65,8 +64,7 @@ model Course {
   endDate          DateTime?
   categories       String
   CourseEnroll     CourseEnroll[]
-  Rating           Rating[]
-  Review           Review[]
+  RatingReview     RatingReview[]
   teacherProfileId String
   TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id], onDelete: Cascade)
   createdAt        DateTime       @default(now())
@@ -98,25 +96,16 @@ model Chat {
   @@unique([teacherProfileId, studentProfileId])
 }
 
-model Rating {
+model RatingReview {
   id               String          @id @default(uuid())
   courseId         String
   Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   studentProfileId String?
-  rate             Int
+  rate             Int  @default(0)
+  comment          String?
+  ratingReviewDate DateTime        @default(now())
 
   @@unique([courseId, studentProfileId])
 }
 
-model Review {
-  id               String          @id @default(uuid())
-  courseId         String
-  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
-  studentProfileId String?
-  comment          String
-  reviewDate       DateTime        @default(now())
-
-  // @@unique([courseId, studentProfileId])
-}
