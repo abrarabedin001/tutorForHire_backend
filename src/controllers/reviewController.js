@@ -5,7 +5,7 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const giveReview = async (req, res) => {
   try {
-    let { studentProfileId, courseId, comment } = req.body;
+    let { courseId, comment } = req.body;
 
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
@@ -30,6 +30,9 @@ const giveReview = async (req, res) => {
 
 const seeReview = async (req, res) => {
   let { courseId } = req.body;
+  console.log(req.body);
+  console.log('asked for commentsssss-------------');
+  console.log(courseId);
 
   try {
     const review = await prisma.review.findMany({
@@ -39,6 +42,7 @@ const seeReview = async (req, res) => {
       orderBy: {
         reviewDate: 'desc',
       },
+      include: { StudentProfile: { include: { user: true } } },
     });
     console.log(review);
     res.status(201).json({ review: review });
