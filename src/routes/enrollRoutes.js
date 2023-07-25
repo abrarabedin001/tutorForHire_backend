@@ -13,7 +13,7 @@ const enrollRouter = express.Router();
 
 enrollRouter.post('/enroll', auth, courseEnroll);
 enrollRouter.get('/enrolledcourses', auth, enrolledCourse);
-enrollRouter.get('/enrollstudents', auth, enrolledStudents);
+enrollRouter.get('/enrolledstudents/:id1', auth, enrolledStudents);
 enrollRouter.delete('/unenroll/:id1/:id2', auth, courseUnenroll);
 enrollRouter.delete('/kickout', auth, studentKickout);
 module.exports = enrollRouter;

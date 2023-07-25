@@ -6,5 +6,5 @@ const auth = require('../middlewares/auth');
 const reviewRouter = express.Router();
 
 reviewRouter.post('/givereview', auth, giveReview);
-reviewRouter.get('/seereview',seeReview);
+reviewRouter.get('/seereview/:id1',seeReview);
 module.exports = reviewRouter;

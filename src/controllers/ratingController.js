@@ -36,12 +36,12 @@ const giveRating = async (req, res) => {
 };
 
 const seeRating = async (req, res) => {
-  let { courseId } = req.body;
+  let { id1 } = req.params;
 
   try {
     const ratings = await prisma.rating.findMany({
       where: {
-        courseId: courseId,
+        courseId: id1,
       },
     });
     // Calculate the sum of all ratings

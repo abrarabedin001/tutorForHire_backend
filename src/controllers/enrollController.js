@@ -123,11 +123,11 @@ const studentKickout = async (req, res) => {
   }
 };
 
-
+//
 //students who enroll
 
 const enrolledStudents = async (req, res) => {
-  const{courseid}=req.body;
+  let {id1}=req.params;
   try {
     console.log("thik hae vai")
     // Find the teacher's profile based on the authenticated userId.
@@ -144,7 +144,7 @@ const enrolledStudents = async (req, res) => {
       where: {
         AND: [
         {
-          id: courseid
+          id: id1
         },
         {
           teacherProfileId: teacherProfile.id
