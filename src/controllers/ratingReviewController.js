@@ -5,8 +5,6 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const giveRatingReview = async (req, res) => {
   let { courseId, rate, comment } = req.body;
-  console.log(req.body);
-  console.log('give rating');
 
   // Check if the rate is within the range of 1 to 5
   if (rate >= 1 && rate <= 5) {
@@ -39,18 +37,16 @@ const giveRatingReview = async (req, res) => {
 
 const showRatingReview = async (req, res) => {
   let { id1 } = req.params;
-  console.log(req.params);
-  console.log('show rating review');
-  const alldetails = await prisma.RatingReview.findMany({
-    where: {
-      courseId: id1,
-    },
-    include: { StudentProfile: { include: { user: true } } },
-  });
-  console.log(alldetails);
 
-  res.status(201).json({ ratingReview: alldetails });
   try {
+    const alldetails = await prisma.RatingReview.findMany({
+      where: {
+        courseId: id1,
+      },
+      include: { StudentProfile: { include: { user: true } } },
+    });
+
+    res.status(201).json({ ratingReview: alldetails });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -73,8 +69,7 @@ const seeTotalRating = async (req, res) => {
 
     // Calculate the average rating
     const averageRating = Math.round(sumRatings / ratings.length);
-    console.log(ratings);
-    console.log(averageRating);
+
     res.status(201).json({ averageRating: averageRating });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });

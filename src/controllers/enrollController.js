@@ -1,3 +1,4 @@
+const { all } = require('axios');
 const prisma = require('../Database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -71,53 +72,54 @@ const courseUnenroll = async (req, res) => {
   }
 };
 
-
 // use kickout button
 const studentKickout = async (req, res) => {
- 
-  const{courseid,studentProfileId}=req.body;
-  
-  try {
-    console.log("dhur hoi na ken")
-  // Find the teacher's profile based on the authenticated userId.
+  console.log('student kickout');
+  console.log(req.user);
+  const { id1, id2 } = req.params;
+  console.log('student kickout');
+
   const teacherProfile = await prisma.teacherProfile.findUnique({
     where: {
       userId: req.user.id,
     },
   });
 
-  console.log(req.user,teacherProfile)
+  console.log(req.user, teacherProfile);
 
   // Find the course created by the teacher and verify its ownership.
   const findcourse = await prisma.course.findFirst({
     where: {
       AND: [
-      {
-        id: courseid
-      },
-      {
-        teacherProfileId: teacherProfile.id
-      }
-    ],
-    },
-  });
-  console.log(findcourse)
-  // Now, delete the student enrollment.
-  const kickout=await prisma.courseEnroll.deleteMany({
-    where: {
-      AND: [
         {
-          courseId: findcourse.id
+          id: id1,
         },
         {
-          studentProfileId: studentProfileId
-        }
+          teacherProfileId: teacherProfile.id,
+        },
       ],
     },
   });
-  console.log(kickout)
+  console.log(findcourse);
+  // Now, delete the student enrollment.
+  const kickout = await prisma.courseEnroll.deleteMany({
+    where: {
+      AND: [
+        {
+          courseId: findcourse.id,
+        },
+        {
+          studentProfileId: id2,
+        },
+      ],
+    },
+  });
+  console.log(kickout);
 
-    res.status(201).json({ kickout: kickout });
+  res.status(201).json({ kickout: kickout });
+
+  try {
+    // Find the teacher's profile based on the authenticated userId.
   } catch (err) {
     res.status(404).json({ message: 'Something went wrong.', error: err });
   }
@@ -127,46 +129,35 @@ const studentKickout = async (req, res) => {
 //students who enroll
 
 const enrolledStudents = async (req, res) => {
-  let {id1}=req.params;
+  let { id1 } = req.params;
+  console.log('enrolled students');
+  const checkcourse = await prisma.course.findFirst({
+    where: {
+      id: id1,
+    },
+  });
+
+  // Now, delete the student enrollment.
+  const allstudents = await prisma.courseEnroll.findMany({
+    where: {
+      courseId: checkcourse.id,
+    },
+    include: { StudentProfile: { include: { user: true } } },
+  });
+  console.log(allstudents);
+  console.log(allstudents);
+  res.status(201).json({ message: allstudents });
   try {
-    console.log("thik hae vai")
-    // Find the teacher's profile based on the authenticated userId.
-    const teacherProfile = await prisma.teacherProfile.findUnique({
-      where: {
-        userId: req.user.id,
-      },
-    });
-
-    console.log(req.user,teacherProfile)
-
     // Find the course created by the teacher and verify its ownership.
-    const checkcourse = await prisma.course.findFirst({
-      where: {
-        AND: [
-        {
-          id: id1
-        },
-        {
-          teacherProfileId: teacherProfile.id
-        }
-      ],
-      },
-    });
-
-    // Now, delete the student enrollment.
-    const allstudents=await prisma.courseEnroll.findMany({
-      where: {
-        courseId: checkcourse.id,
-      },
-    });
-    console.log(allstudents)
-    res.status(201).json({ message: allstudents });
-  }catch (err) {
+  } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-
-
-
-module.exports = { courseEnroll, studentKickout,enrolledCourse, courseUnenroll, enrolledStudents };
+module.exports = {
+  courseEnroll,
+  studentKickout,
+  enrolledCourse,
+  courseUnenroll,
+  enrolledStudents,
+};
