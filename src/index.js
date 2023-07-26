@@ -23,10 +23,10 @@ app.use(express.json());
 app.use('/users', userRouter);
 app.use('/tutor', tutorRouter);
 app.use('/student', studentRouter);
-app.use('/course',courseRouter);
-app.use('/enrollcourse',enrollRouter);
-app.use('/ratingreview',ratingReviewRouter);
-// app.use('/review',reviewRouter);
+app.use('/course', courseRouter);
+app.use('/enrollcourse', enrollRouter);
+app.use('/ratingreview', ratingReviewRouter);
+// app.use('/review',reviewRouter)
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello');

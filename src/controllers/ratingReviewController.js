@@ -4,24 +4,25 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
 const giveRatingReview = async (req, res) => {
-  let { courseId, rate,comment } = req.body;
+  let { courseId, rate, comment } = req.body;
   console.log(req.body);
   console.log('give rating');
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: { StudentProfile: true },
-  });
-  console.log(user);
 
   // Check if the rate is within the range of 1 to 5
   if (rate >= 1 && rate <= 5) {
     try {
+      const user = await prisma.user.findUnique({
+        where: { id: req.user.id },
+        include: { StudentProfile: true },
+      });
+      console.log(user);
+
       const postRating = await prisma.ratingReview.create({
         data: {
           studentProfileId: user.StudentProfile.id,
           courseId: courseId,
           rate: rate,
-          comment:comment
+          comment: comment,
         },
       });
 
@@ -38,21 +39,22 @@ const giveRatingReview = async (req, res) => {
 
 const showRatingReview = async (req, res) => {
   let { id1 } = req.params;
+  console.log(req.params);
+  console.log('show rating review');
   const alldetails = await prisma.RatingReview.findMany({
     where: {
       courseId: id1,
     },
+    include: { StudentProfile: { include: { user: true } } },
   });
+  console.log(alldetails);
 
   res.status(201).json({ ratingReview: alldetails });
   try {
-
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
-
-
 
 const seeTotalRating = async (req, res) => {
   let { id1 } = req.params;
@@ -80,4 +82,4 @@ const seeTotalRating = async (req, res) => {
 };
 
 //
-module.exports = { seeTotalRating, giveRatingReview,showRatingReview};
+module.exports = { seeTotalRating, giveRatingReview, showRatingReview };

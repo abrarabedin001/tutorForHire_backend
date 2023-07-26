@@ -7,6 +7,7 @@ const SECRET_KEY = 'skldjfa;lsdj';
 const coursePost = async (req, res) => {
   console.log('course post');
   console.log(req.body);
+
   try {
     let {
       title,
@@ -88,7 +89,6 @@ const courseGet = async (req, res) => {
 };
 //for single teacher
 const courseGetPersonal = async (req, res) => {
-
   try {
     let { id } = req.params;
     let courseshow = await prisma.course.findMany({
@@ -160,14 +160,13 @@ const courseDelete = async (req, res) => {
 
   try {
     let coursedelete = await prisma.course.delete({
-      where :{
-        id:id
-      }
+      where: {
+        id: id,
+      },
     });
-    console.log(coursedelete)
-  
-    res.status(201).json({ coursedelete: coursedelete });
+    console.log(coursedelete);
 
+    res.status(201).json({ coursedelete: coursedelete });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -181,5 +180,5 @@ module.exports = {
   courseSearch,
   courseDelete,
   coursePatch,
-  courseGetPersonal
+  courseGetPersonal,
 };
