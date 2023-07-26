@@ -18,7 +18,8 @@ const auth = (req, res, next) => {
     // console.log('---------------------');
     // console.log(req.headers.authorization);
     // console.log(error);
-    res.status(401).json({message: "Unauthorised User"})
+
+    res.status(401).json({ message: 'Unauthorised User' });
   }
 };
 module.exports = auth;

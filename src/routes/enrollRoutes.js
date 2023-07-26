@@ -5,7 +5,7 @@ const {
   enrolledCourse,
   courseUnenroll,
   studentKickout,
-  enrolledStudents
+  enrolledStudents,
 } = require('../controllers/enrollController');
 const auth = require('../middlewares/auth');
 
@@ -15,5 +15,5 @@ enrollRouter.post('/enroll', auth, courseEnroll);
 enrollRouter.get('/enrolledcourses', auth, enrolledCourse);
 enrollRouter.get('/enrolledstudents/:id1', auth, enrolledStudents);
 enrollRouter.delete('/unenroll/:id1/:id2', auth, courseUnenroll);
-enrollRouter.delete('/kickout', auth, studentKickout);
+enrollRouter.delete('/kickout/:id1/:id2', auth, studentKickout);
 module.exports = enrollRouter;
