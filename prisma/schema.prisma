@@ -102,10 +102,9 @@ model RatingReview {
   Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   studentProfileId String?
-  rate             Int  @default(0)
+  rate             Int             @default(0)
   comment          String?
   ratingReviewDate DateTime        @default(now())
 
   @@unique([courseId, studentProfileId])
 }
-
