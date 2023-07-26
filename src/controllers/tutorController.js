@@ -19,29 +19,22 @@ const tutorCreate = async (req, res) => {
 };
 
 const tutorPatch = async (req, res) => {
-  let { password, bio, education } = req.body;
+  let { bio, education } = req.body;
+  console.log(bio, education);
+  console.log('patch is working');
+  const updateTeacher = await prisma.teacherProfile.update({
+    where: {
+      userId: req.user.id,
+    },
+    data: {
+      bio: bio,
+      education: education,
+    },
+  });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  res.status(201).json({ updateTeacher: updateTeacher });
 
   try {
-    const updateTeacher = await prisma.teacherProfile.update({
-      where: {
-        userId: req.user.id,
-      },
-      data: {
-        user: {
-          update: {
-            password: hashedPassword,
-          },
-        },
-        bio: bio,
-        education: education,
-      },
-    });
-    console.log(req.user.id);
-    console.log(updateTeacher);
-    console.log(password);
-    res.status(201).json({ updateTeacher: updateTeacher });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -49,25 +42,16 @@ const tutorPatch = async (req, res) => {
 //
 
 //not done yet
-const tutorDelete = async (req, res) => {
+
+const GetProfile = async (req, res) => {
   let { bio, education } = req.body;
   try {
-    const deleteTeacher = await prisma.teacherProfile.delete({
-      where:
-        OR[
-          ({
-            userId: req.user.id,
-          },
-          {
-            email: req.user.email,
-          })
-        ],
-      data: {
-        bio: bio,
-        education: education,
+    const profile = await prisma.teacherProfile.findFirst({
+      where: {
+        userId: req.user.id,
       },
     });
-    res.status(201).json({ deleteTeacher: deleteTeacher });
+    res.status(201).json({ data: profile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -75,4 +59,4 @@ const tutorDelete = async (req, res) => {
 
 //
 
-module.exports = { tutorCreate, tutorPatch, tutorDelete };
+module.exports = { tutorCreate, tutorPatch, GetProfile };
