@@ -280,3 +280,17 @@ Content-Type: application/json
 GET    http://localhost:5000/ratingreview/showratingreview/296591aa-2941-470e-b037-a4fab66bf398 HTTP/1.1
 Content-Type: application/json
 
+
+###
+POST    http://localhost:5000/chat/givechat HTTP/1.1
+Content-Type: application/json
+
+{
+  "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277",
+  "userId":"5d940eb5-d879-4262-99d4-2247b1a3e2ec",
+  "chat": "we are best"
+}
+
+###
+GET    http://localhost:5000/chat/seechat/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
+Content-Type: application/json
