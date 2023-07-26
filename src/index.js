@@ -4,7 +4,7 @@ const tutorRouter = require('./routes/tutorRoutes');
 const studentRouter = require('./routes/studentRoutes');
 const courseRouter = require('./routes/courseRoutes');
 const enrollRouter = require('./routes/enrollRoutes');
-const ratingRouter = require('./routes/ratingRoutes');
+const ratingReviewRouter = require('./routes/ratingReviewRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
@@ -25,8 +25,8 @@ app.use('/tutor', tutorRouter);
 app.use('/student', studentRouter);
 app.use('/course',courseRouter);
 app.use('/enrollcourse',enrollRouter);
-app.use('/rating',ratingRouter);
-app.use('/review',reviewRouter);
+app.use('/ratingreview',ratingReviewRouter);
+// app.use('/review',reviewRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello');

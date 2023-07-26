@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
-const giveRating = async (req, res) => {
-  let { courseId, rate } = req.body;
+const giveRatingReview = async (req, res) => {
+  let { courseId, rate,comment } = req.body;
   console.log(req.body);
   console.log('give rating');
   const user = await prisma.user.findUnique({
@@ -16,15 +16,16 @@ const giveRating = async (req, res) => {
   // Check if the rate is within the range of 1 to 5
   if (rate >= 1 && rate <= 5) {
     try {
-      const postRating = await prisma.rating.create({
+      const postRating = await prisma.ratingReview.create({
         data: {
           studentProfileId: user.StudentProfile.id,
           courseId: courseId,
           rate: rate,
+          comment:comment
         },
       });
 
-      res.status(201).json({ postRating: postRating });
+      res.status(201).json({ postRatingReview: postRating });
     } catch (err) {
       res.status(404).json({ message: 'Something went wrong', error: err });
     }
@@ -35,18 +36,36 @@ const giveRating = async (req, res) => {
   }
 };
 
-const seeRating = async (req, res) => {
+const showRatingReview = async (req, res) => {
+  let { id1 } = req.params;
+  const alldetails = await prisma.RatingReview.findMany({
+    where: {
+      courseId: id1,
+    },
+  });
+
+  res.status(201).json({ ratingReview: alldetails });
+  try {
+
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+
+
+const seeTotalRating = async (req, res) => {
   let { id1 } = req.params;
 
   try {
-    const ratings = await prisma.rating.findMany({
+    const ratings = await prisma.ratingReview.findMany({
       where: {
         courseId: id1,
       },
     });
     // Calculate the sum of all ratings
     const sumRatings = ratings.reduce(
-      (total, rating) => total + rating.rate,
+      (total, ratingReview) => total + ratingReview.rate,
       0,
     );
 
@@ -54,11 +73,11 @@ const seeRating = async (req, res) => {
     const averageRating = Math.round(sumRatings / ratings.length);
     console.log(ratings);
     console.log(averageRating);
-    res.status(201).json({ rating: averageRating });
+    res.status(201).json({ averageRating: averageRating });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
 //
-module.exports = { seeRating, giveRating };
+module.exports = { seeTotalRating, giveRatingReview,showRatingReview};
