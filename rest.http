@@ -18,15 +18,15 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "akij@gmail.com",
-  "password": "360"
+  "email": "anik@gmail.com",
+  "password": "12345678"
 }
 
 ###
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjE3NmQ4MGZlLWU5NmQtNDE4MS1hM2U1LTJmYjdhMjZhZGRmNyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTA0MDI4OTR9.YvIumWSmcrGutpMU8Q9LV4God58hmZmFDhIC1honUIE
 
 { 
   "bio": "hello everyone",
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 { 
   "email": "faizan@gmail.com",
-  "password": "faizan360"
+  "password": "12345678"
 }
 
 ###
@@ -124,14 +124,18 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbW
 
 POST  http://localhost:5000/course/coursepost HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6ImFiOTM2OWFhLWM0Y2YtNDQ5Yi1hMjFmLTM3ZGQ2NWQ4ODBmMCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjgwNDV9.Xgo7zmykWY_aqR5vBDKVPGh_lnHc6PHdUzHG56Ua_P0
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwiaWQiOiJlMTg2MzhjNy0yM2FlLTRhYjMtYTg1ZC05Y2E0N2QzZjEyNDQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkwNDAwNjg0fQ.qHXMDA_Un3EbVKpwPGc9YdKucR7Ftf2ADR8fEJSdLTU
 
 {
-  "title":"eee111-2023","description":"description","seatStatus":5,
-            "address":"dhaka","endDate":"2023-07-25T10:57:45.593Z",
-            "categories":"eee",
-            "teacherProfileId":"79696de7-47a1-4d06-a24a-711ba64ab5ed"
-        }
+  "title": "bd-2023",
+  "description": "description",
+  "seatStatus": 5,
+  "address": "dhaka",
+  "startDate": "2023-07-25T10:57:45.593Z",
+  "endDate": "2023-07-25T10:57:45.593Z",
+  "categories": "eee",
+  "teacherProfileId": "e18638c7-23ae-4ab3-a85d-9ca47d3f1244"
+}
 
 ###
 
