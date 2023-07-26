@@ -19,6 +19,7 @@ model User {
   type           Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
+  Chat      Chat[]
 }
 
 enum Type {
@@ -38,7 +39,6 @@ model StudentProfile {
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String         @unique
   CourseEnroll CourseEnroll[]
-  Chat         Chat[]
   RatingReview RatingReview[]
   chatId       String?
 }
@@ -50,7 +50,6 @@ model TeacherProfile {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
   Course    Course[]
-  Chat      Chat[]
   chatId    String?
 }
 
@@ -63,6 +62,7 @@ model Course {
   address          String?
   endDate          DateTime?
   categories       String
+  Chat             Chat[]
   CourseEnroll     CourseEnroll[]
   RatingReview     RatingReview[]
   teacherProfileId String
@@ -85,16 +85,6 @@ model CourseEnroll {
   @@unique([courseId, studentProfileId])
 }
 
-model Chat {
-  id               String          @id @default(uuid())
-  TeacherProfile   TeacherProfile? @relation(fields: [teacherProfileId], references: [id])
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
-  created_at       DateTime        @default(now())
-  teacherProfileId String
-  studentProfileId String
-
-  @@unique([teacherProfileId, studentProfileId])
-}
 
 model RatingReview {
   id               String          @id @default(uuid())
@@ -108,3 +98,15 @@ model RatingReview {
 
   @@unique([courseId, studentProfileId])
 }
+
+model Chat {
+  id               String          @id @default(uuid())
+  courseId         String         
+  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User?           @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  chat String?
+  created_at       DateTime        @default(now())
+}
+
+
