@@ -60,6 +60,7 @@ model Course {
   description      String?
   seatStatus       Int?
   address          String?
+  startDate        DateTime? 
   endDate          DateTime?
   categories       String
   Chat             Chat[]

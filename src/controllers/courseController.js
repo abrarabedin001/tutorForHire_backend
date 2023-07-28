@@ -7,6 +7,7 @@ const SECRET_KEY = 'skldjfa;lsdj';
 const coursePost = async (req, res) => {
   console.log('course post');
   console.log(req.body);
+  
 
   try {
     let {
@@ -14,18 +15,20 @@ const coursePost = async (req, res) => {
       description,
       seatStatus,
       address,
+      startDate,
       endDate,
       categories,
       teacherProfileId,
     } = req.body;
+    startDate = new Date(startDate);
     endDate = new Date(endDate);
-
     let courseCreate = await prisma.course.create({
       data: {
         title: title,
         description: description,
         seatStatus: seatStatus,
         address: address,
+        startDate: startDate,
         endDate: endDate,
         categories: categories,
         TeacherProfile: {
@@ -35,6 +38,9 @@ const coursePost = async (req, res) => {
         },
       },
     });
+    
+    console.log(courseCreate)
+
     res.status(201).json({ courseCreate: courseCreate });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -81,7 +87,7 @@ const courseGet = async (req, res) => {
         createdAt: 'desc',
       },
     });
-
+    console.log(courseshow)
     res.status(201).json({ courseshow: courseshow });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -143,6 +149,7 @@ const coursePatch = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
+        startDate:new Date(startDate),
         endDate: new Date(endDate),
       },
     });
