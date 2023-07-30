@@ -10,7 +10,7 @@ const courseEnroll = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
-  console.log('endroll user');
+
   try {
     const courseEnrollment = await prisma.courseEnroll.create({
       data: {
@@ -30,7 +30,7 @@ const enrolledCourse = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
-  console.log('Enroll is working');
+
   try {
     const enrolledCourses = await prisma.courseEnroll.findMany({
       where: {
@@ -40,7 +40,7 @@ const enrolledCourse = async (req, res) => {
         Course: true,
       },
     });
-    console.log(enrolledCourses);
+
     res.status(201).json({ enrolledCourses: enrolledCourses });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -51,21 +51,18 @@ const courseUnenroll = async (req, res) => {
   let { id1, id2 } = req.params;
 
   try {
-    console.log(id1, id2);
-    // console.log(req.user.id);
-    console.log('course unenroll');
     let user = await prisma.user.findUnique({
       where: { id: id2 },
       include: { StudentProfile: true },
     });
-    console.log(user);
+
     const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
       where: {
         courseId: id1,
         studentProfileId: user.StudentProfile.id,
       },
     });
-    console.log(deletedCourseEnroll);
+
     res.status(204);
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -74,18 +71,13 @@ const courseUnenroll = async (req, res) => {
 
 // use kickout button
 const studentKickout = async (req, res) => {
-  console.log('student kickout');
-  console.log(req.user);
   const { id1, id2 } = req.params;
-  console.log('student kickout');
 
   const teacherProfile = await prisma.teacherProfile.findUnique({
     where: {
       userId: req.user.id,
     },
   });
-
-  console.log(req.user, teacherProfile);
 
   // Find the course created by the teacher and verify its ownership.
   const findcourse = await prisma.course.findFirst({
@@ -100,7 +92,7 @@ const studentKickout = async (req, res) => {
       ],
     },
   });
-  console.log(findcourse);
+
   // Now, delete the student enrollment.
   const kickout = await prisma.courseEnroll.deleteMany({
     where: {
@@ -114,7 +106,6 @@ const studentKickout = async (req, res) => {
       ],
     },
   });
-  console.log(kickout);
 
   res.status(201).json({ kickout: kickout });
 
@@ -130,7 +121,7 @@ const studentKickout = async (req, res) => {
 
 const enrolledStudents = async (req, res) => {
   let { id1 } = req.params;
-  console.log('enrolled students');
+
   const checkcourse = await prisma.course.findFirst({
     where: {
       id: id1,
@@ -144,8 +135,7 @@ const enrolledStudents = async (req, res) => {
     },
     include: { StudentProfile: { include: { user: true } } },
   });
-  console.log(allstudents);
-  console.log(allstudents);
+
   res.status(201).json({ message: allstudents });
   try {
     // Find the course created by the teacher and verify its ownership.

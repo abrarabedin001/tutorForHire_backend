@@ -13,7 +13,6 @@ const giveRatingReview = async (req, res) => {
         where: { id: req.user.id },
         include: { StudentProfile: true },
       });
-      console.log(user);
 
       const postRating = await prisma.ratingReview.create({
         data: {
@@ -54,8 +53,6 @@ const showRatingReview = async (req, res) => {
 
 const seeTotalRating = async (req, res) => {
   let { id1 } = req.params;
-  console.log('course id');
-  console.log(id1);
 
   try {
     const ratings = await prisma.ratingReview.findMany({
@@ -70,8 +67,7 @@ const seeTotalRating = async (req, res) => {
     );
 
     // Calculate the average rating
-    console.log('sum of all raing');
-    console.log(ratings);
+
     const averageRating = Math.round(sumRatings / ratings.length);
 
     res.status(201).json({ averageRating: averageRating });
