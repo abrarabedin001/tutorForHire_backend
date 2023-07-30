@@ -20,8 +20,7 @@ const tutorCreate = async (req, res) => {
 
 const tutorPatch = async (req, res) => {
   let { bio, education } = req.body;
-  console.log(bio, education);
-  console.log('patch is working');
+
   const updateTeacher = await prisma.teacherProfile.update({
     where: {
       userId: req.user.id,

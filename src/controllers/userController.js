@@ -4,15 +4,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
 const signup = async (req, res) => {
-  // req = from front end
-  // res = to front end
-
-  // email,name,password = req.body
-  // distructuring
-  console.log('signup hoche');
-
   let { email, name, password, type } = req.body;
-  console.log(req.body, email, name, password, type);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +36,6 @@ const signup = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  console.log('sign in kaj kore');
   let { email, password } = req.body;
   try {
     const user = await prisma.user.findUnique({ where: { email } });

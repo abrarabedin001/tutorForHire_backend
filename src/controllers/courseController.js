@@ -5,10 +5,6 @@ const SECRET_KEY = 'skldjfa;lsdj';
 //
 //course insert or create
 const coursePost = async (req, res) => {
-  console.log('course post');
-  console.log(req.body);
-  
-
   try {
     let {
       title,
@@ -38,8 +34,6 @@ const coursePost = async (req, res) => {
         },
       },
     });
-    
-    console.log(courseCreate)
 
     res.status(201).json({ courseCreate: courseCreate });
   } catch (err) {
@@ -71,7 +65,7 @@ const courseSearch = async (req, res) => {
         createdAt: 'desc',
       },
     });
-    console.log(coursedetails);
+
     res.status(201).json({ coursedetails: coursedetails });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -80,14 +74,13 @@ const courseSearch = async (req, res) => {
 
 //for all courses page
 const courseGet = async (req, res) => {
-  console.log('get courses');
   try {
     let courseshow = await prisma.course.findMany({
       orderBy: {
         createdAt: 'desc',
       },
     });
-    console.log(courseshow)
+
     res.status(201).json({ courseshow: courseshow });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -119,14 +112,13 @@ const courseGetPersonal = async (req, res) => {
 //singleCourse
 
 const singleCourse = async (req, res) => {
-  console.log('get single course');
   const id = req.params.id;
   let course = await prisma.course.findUnique({
     where: {
       id: id,
     },
   });
-  console.log(id);
+
   res.status(201).json({ course: course });
   try {
   } catch (err) {
@@ -136,7 +128,6 @@ const singleCourse = async (req, res) => {
 
 //course update
 const coursePatch = async (req, res) => {
-  console.log('course patch----------------');
   let { description, seatStatus, address, endDate } = req.body;
   const id = req.params.id;
 
@@ -149,7 +140,7 @@ const coursePatch = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
-        startDate:new Date(startDate),
+        startDate: new Date(startDate),
         endDate: new Date(endDate),
       },
     });
@@ -171,7 +162,6 @@ const courseDelete = async (req, res) => {
         id: id,
       },
     });
-    console.log(coursedelete);
 
     res.status(201).json({ coursedelete: coursedelete });
   } catch (err) {

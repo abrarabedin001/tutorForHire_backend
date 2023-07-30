@@ -4,20 +4,18 @@ const jwt = require('jsonwebtoken');
 const { use } = require('../routes/enrollRoutes');
 const SECRET_KEY = 'skldjfa;lsdj';
 
-
 const giveChat = async (req, res) => {
-    let { userId, courseId, chat } = req.body;
+  let { courseId, chat } = req.body;
 
+  try {
+    const postChat = await prisma.chat.create({
+      data: {
+        courseId: courseId,
+        userId: req.user.id,
+        chat: chat,
+      },
+    });
 
-    try {
-      const postChat = await prisma.chat.create({
-        data: {
-          courseId:courseId,
-          userId:userId,
-          chat:chat
-        },
-      });
-      console.log(postChat);
     res.status(201).json({ postChat: postChat });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -27,19 +25,20 @@ const giveChat = async (req, res) => {
 const seeChat = async (req, res) => {
   let { id1 } = req.params;
   try {
-    const showChat= await prisma.chat.findMany({
+    const showChat = await prisma.chat.findMany({
       where: {
         courseId: id1,
       },
       orderBy: {
         created_at: 'desc',
       },
+      include: { user: true },
     });
-    console.log(showChat);
-    res.status(201).json({ showChat:showChat });
+
+    res.status(201).json({ showChat: showChat });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-module.exports = { seeChat, giveChat};
+module.exports = { seeChat, giveChat };
