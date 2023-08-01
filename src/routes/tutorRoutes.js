@@ -12,7 +12,7 @@ const tutorRouter = express.Router();
 
 tutorRouter.post('/tutorcreate', auth, tutorCreate);
 tutorRouter.patch('/tutorupdate', auth, tutorPatch);
-tutorRouter.get('/searchtutor', SearchTutor);
+tutorRouter.get('/searchtutor/:name', SearchTutor);
 tutorRouter.get('/getall', GetTutors);
 
 module.exports = tutorRouter;

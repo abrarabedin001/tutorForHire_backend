@@ -57,13 +57,14 @@ const GetTutors = async (req, res) => {
 
 const SearchTutor = async (req, res) => {
   let { name } = req.params;
+
   try {
-    const profile = await prisma.teacherProfile.findFirst({
+    const profile = await prisma.course.findMany({
       where: {
-        user: { name: { contains: name } },
+        teacherProfileId: name,
       },
-      include: { user: true },
     });
+
     res.status(201).json({ data: profile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
