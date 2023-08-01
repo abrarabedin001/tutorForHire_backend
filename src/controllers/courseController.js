@@ -117,6 +117,12 @@ const singleCourse = async (req, res) => {
     where: {
       id: id,
     },
+    include: {
+      TeacherProfile: { include: { user: true } },
+      CourseEnroll: {
+        include: { StudentProfile: { include: { user: true } } },
+      },
+    },
   });
 
   res.status(201).json({ course: course });
