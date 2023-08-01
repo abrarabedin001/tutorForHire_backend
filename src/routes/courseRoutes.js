@@ -14,12 +14,11 @@ const {
   coursePatch,
   coursePost,
   courseGetPersonal,
-
 } = require('../controllers/courseController');
 const auth = require('../middlewares/auth');
 
 const courseRouter = express.Router();
-courseRouter.get('/categories', courseSearch);
+courseRouter.get('/categories/:query', courseSearch);
 courseRouter.get('/showcourse', courseGet);
 courseRouter.get('/showcourse/:id', courseGetPersonal);
 courseRouter.get('/singlecourse/:id', singleCourse);

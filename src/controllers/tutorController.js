@@ -42,14 +42,29 @@ const tutorPatch = async (req, res) => {
 
 //not done yet
 
-const GetProfile = async (req, res) => {
-  let { bio, education } = req.body;
+const GetTutors = async (req, res) => {
+  let { id } = req.params;
   try {
-    const profile = await prisma.teacherProfile.findFirst({
+    const courses = await prisma.teacherProfile.findMany({
+      include: { user: true },
+    });
+
+    res.status(201).json({ data: courses });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+const SearchTutor = async (req, res) => {
+  let { name } = req.params;
+
+  try {
+    const profile = await prisma.course.findMany({
       where: {
-        userId: req.user.id,
+        teacherProfileId: name,
       },
     });
+
     res.status(201).json({ data: profile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -58,4 +73,4 @@ const GetProfile = async (req, res) => {
 
 //
 
-module.exports = { tutorCreate, tutorPatch, GetProfile };
+module.exports = { tutorCreate, tutorPatch, GetTutors, SearchTutor };
