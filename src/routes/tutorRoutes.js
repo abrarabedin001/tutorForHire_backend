@@ -3,7 +3,8 @@ const prisma = require('../Database');
 const {
   tutorCreate,
   tutorPatch,
-  GetProfile,
+  GetTutors,
+  SearchTutor,
 } = require('../controllers/tutorController');
 const auth = require('../middlewares/auth');
 
@@ -11,6 +12,7 @@ const tutorRouter = express.Router();
 
 tutorRouter.post('/tutorcreate', auth, tutorCreate);
 tutorRouter.patch('/tutorupdate', auth, tutorPatch);
-tutorRouter.get('/getprofile', auth, GetProfile);
+tutorRouter.get('/searchtutor', SearchTutor);
+tutorRouter.get('/getall', GetTutors);
 
 module.exports = tutorRouter;

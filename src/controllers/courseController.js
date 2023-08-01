@@ -43,7 +43,7 @@ const coursePost = async (req, res) => {
 
 //search using categories
 const courseSearch = async (req, res) => {
-  let { query } = req.body;
+  let { query } = req.params;
 
   try {
     let coursedetails = await prisma.course.findMany({
