@@ -144,7 +144,7 @@ const enrolledStudents = async (req, res) => {
   }
 };
 
-
+//newly made
 const paid = async (req, res) => {
   let { courseId,paid } = req.body;
   let user = await prisma.user.findUnique({
