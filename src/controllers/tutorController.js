@@ -47,6 +47,7 @@ const GetProfile = async (req, res) => {
     where: {
       userId: req.user.id,
     },
+    include: { user: true },
   });
   console.log(profile);
   res.status(201).json({ data: profile });
