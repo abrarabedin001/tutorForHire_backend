@@ -18,10 +18,16 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "anik@gmail.com",
+  "email": "anik54@gmail.com",
   "password": "12345678"
 }
 
+
+
+###
+GET http://localhost:5000/users/showprofile HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6ImNlYzk3MmY1LWUwYWUtNDJhOC1hYjUxLWE2ZWJjMjdhYWMxNSIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTA5Nzg2MDd9.AWOJv-2w12EkJGgDIpLqWvMyQ4qDMrFPSr4u6hjWRng
 ###
 
 POST  http://localhost:5000/student/create HTTP/1.1
