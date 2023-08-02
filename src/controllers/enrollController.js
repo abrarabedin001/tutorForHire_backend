@@ -144,10 +144,41 @@ const enrolledStudents = async (req, res) => {
   }
 };
 
+
+const paid = async (req, res) => {
+  let { courseId,paid } = req.body;
+  let user = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    include: { StudentProfile: true },
+  });
+  
+  try {
+    const coursepay= await prisma.courseEnroll.update({
+      where: {
+        courseId_studentProfileId:{
+        studentProfileId: user.StudentProfile.id,
+        courseId: courseId,
+      },
+      },
+      data:{
+        paid:paid
+      }
+    });
+  
+    res.status(201).json({ coursepay: coursepay });
+  
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+
 module.exports = {
   courseEnroll,
   studentKickout,
   enrolledCourse,
   courseUnenroll,
   enrolledStudents,
+  paid
+
 };
