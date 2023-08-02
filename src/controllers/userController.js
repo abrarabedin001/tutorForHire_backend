@@ -69,4 +69,27 @@ const signin = async (req, res) => {
     res.status(500).json({ message: 'Something went wrong', error: err });
   }
 };
-module.exports = { signin, signup };
+
+
+const showProfile = async (req, res) => {
+  // let { id } = req.params;
+
+  try {
+    const courses = await prisma.user.findUnique({
+      where:{
+        id:req.user.id
+  
+      },
+      include: {
+        TeacherProfile: true,
+        StudentProfile: true,
+      },
+    });
+  
+    res.status(201).json({ data: courses });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+module.exports = { signin, signup, showProfile};
