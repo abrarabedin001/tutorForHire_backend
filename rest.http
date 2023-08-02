@@ -18,7 +18,7 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "anik54@gmail.com",
+  "email": "faizan@gmail.com",
   "password": "12345678"
 }
 
@@ -215,6 +215,16 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ2
   "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491"
 }
 
+
+###
+PATCH    http://localhost:5000/enrollcourse/paid HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjE3NmQ4MGZlLWU5NmQtNDE4MS1hM2U1LTJmYjdhMjZhZGRmNyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTA5OTI4Njd9.36sLlIJQhpib0Kn3znI3vduAKpCpubX7noyWunwKXtw
+
+{
+  "courseId":"09dc50b5-9978-4896-9a46-a69b54c71116",
+  "paid":true
+}
 
 
 //show enrolled students
