@@ -1,10 +1,10 @@
-const express = require('express');
-const prisma = require('../Database');
+// const express = require('express');
+// const prisma = require('../Database');
 
-const {giveReview, seeReview} = require('../controllers/reviewController');
-const auth = require('../middlewares/auth');
-const reviewRouter = express.Router();
+// const {giveReview, seeReview} = require('../controllers/reviewController');
+// const auth = require('../middlewares/auth');
+// const reviewRouter = express.Router();
 
-reviewRouter.post('/givereview', auth, giveReview);
-reviewRouter.get('/seereview',seeReview);
-module.exports = reviewRouter;
+// reviewRouter.post('/givereview', auth, giveReview);
+// reviewRouter.get('/seereview/:id1',seeReview);
+// module.exports = reviewRouter;

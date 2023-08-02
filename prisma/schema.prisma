@@ -19,6 +19,7 @@ model User {
   type           Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
+  Chat           Chat[]
 }
 
 enum Type {
@@ -35,12 +36,10 @@ model StudentProfile {
   id           String         @id @default(uuid())
   bio          String
   education    String
-  user         User           @relation(fields: [userId], references: [id],onDelete: Cascade)
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String         @unique
   CourseEnroll CourseEnroll[]
-  Chat         Chat[]
-  Rating       Rating[]
-  Review       Review[]
+  RatingReview RatingReview[]
   chatId       String?
 }
 
@@ -48,10 +47,9 @@ model TeacherProfile {
   id        String   @id @default(uuid())
   bio       String
   education String
-  user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
   Course    Course[]
-  Chat      Chat[]
   chatId    String?
 }
 
@@ -59,16 +57,18 @@ model Course {
   id               String         @id @default(uuid())
   title            String
   published        Boolean        @default(false)
+  rate             Int            @default(0)
   description      String?
   seatStatus       Int?
   address          String?
+  startDate        DateTime?
   endDate          DateTime?
   categories       String
+  Chat             Chat[]
   CourseEnroll     CourseEnroll[]
-  Rating           Rating[]
-  Review           Review[]
+  RatingReview     RatingReview[]
   teacherProfileId String
-  TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id],onDelete: Cascade)
+  TeacherProfile   TeacherProfile @relation(fields: [teacherProfileId], references: [id], onDelete: Cascade)
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 
@@ -78,42 +78,36 @@ model Course {
 model CourseEnroll {
   id               String          @id @default(uuid())
   courseId         String
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   studentProfileId String?
+
+  transaction_id   String?
+  paid             Boolean         @default(false)
   Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, studentProfileId])
+
+}
+
+model RatingReview {
+  id               String          @id @default(uuid())
+  courseId         String
+  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  studentProfileId String?
+  rate             Int             @default(0)
+  comment          String?
+  ratingReviewDate DateTime        @default(now())
+
   @@unique([courseId, studentProfileId])
 }
 
 model Chat {
-  id               String          @id @default(uuid())
-  TeacherProfile   TeacherProfile? @relation(fields: [teacherProfileId], references: [id])
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
-  created_at       DateTime        @default(now())
-  teacherProfileId String
-  studentProfileId String
-
-  @@unique([teacherProfileId, studentProfileId])
-}
-
-model Rating {
-  id               String          @id @default(uuid())
-  courseId         String
-  Course           Course          @relation(fields: [courseId], references: [id],onDelete: Cascade)
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
-  studentProfileId String?
-  rate             Int
-
-  @@unique([courseId, studentProfileId])
-}
-
-model Review {
-  id               String          @id @default(uuid())
-  courseId         String
-  Course           Course          @relation(fields: [courseId], references: [id],onDelete: Cascade)
-  StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id],onDelete: Cascade)
-  studentProfileId String?
-  comment          String
-  reviewDate       DateTime        @default(now())
-
-  @@unique([courseId, studentProfileId])
+  id         String   @id @default(uuid())
+  courseId   String
+  Course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat       String?
+  created_at DateTime @default(now())
 }

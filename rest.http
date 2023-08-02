@@ -3,9 +3,9 @@ POST http://localhost:5000/users/signup HTTP/1.1
 Content-Type: application/json
 
 { 
-  "name": "akij",
-  "email": "akij@gmail.com",
-  "password": "akik360",
+  "name": "anik54",
+  "email": "anik54@gmail.com",
+  "password": "anik5454",
   "type":"STUDENT"
 }
 
@@ -18,19 +18,25 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "akij@gmail.com",
-  "password": "360"
+  "email": "anik54@gmail.com",
+  "password": "12345678"
 }
 
+
+
+###
+GET http://localhost:5000/users/showprofile HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6ImNlYzk3MmY1LWUwYWUtNDJhOC1hYjUxLWE2ZWJjMjdhYWMxNSIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTA5Nzg2MDd9.AWOJv-2w12EkJGgDIpLqWvMyQ4qDMrFPSr4u6hjWRng
 ###
 
 POST  http://localhost:5000/student/create HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjE3NmQ4MGZlLWU5NmQtNDE4MS1hM2U1LTJmYjdhMjZhZGRmNyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTA0MDI4OTR9.YvIumWSmcrGutpMU8Q9LV4God58hmZmFDhIC1honUIE
 
 { 
   "bio": "hello everyone",
-  "education": "fail"
+  "education": "hello"
 }
 
 ###
@@ -49,20 +55,12 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "anik@gmail.com",
-  "password": "abrar420"
+  "email": "faizan@gmail.com",
+  "password": "12345678"
 }
 
 ###
 
-POST  http://localhost:5000/student/create HTTP/1.1
-Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsImlkIjoiN2JmZjFkYjQtNmE5Yi00NTA3LTg5YzgtMjAyZDJkNmE0MzZkIiwidHlwZSI6IlNUVURFTlQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY4ODgzODg2NX0.8PoA38u7np7BpEoW1wWMI5xglVCx5Qf9uN9Ko2ARA_c
-
-{ 
-  "bio": "2222",
-  "education": "8 pass"
-}
 
 
 
@@ -132,14 +130,18 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbW
 
 POST  http://localhost:5000/course/coursepost HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6ImFiOTM2OWFhLWM0Y2YtNDQ5Yi1hMjFmLTM3ZGQ2NWQ4ODBmMCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjgwNDV9.Xgo7zmykWY_aqR5vBDKVPGh_lnHc6PHdUzHG56Ua_P0
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwiaWQiOiJlMTg2MzhjNy0yM2FlLTRhYjMtYTg1ZC05Y2E0N2QzZjEyNDQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkwNDAwNjg0fQ.qHXMDA_Un3EbVKpwPGc9YdKucR7Ftf2ADR8fEJSdLTU
 
 {
-  "title":"eee111-2023","description":"description","seatStatus":5,
-            "address":"dhaka","endDate":"2023-07-25T10:57:45.593Z",
-            "categories":"eee",
-            "teacherProfileId":"79696de7-47a1-4d06-a24a-711ba64ab5ed"
-        }
+  "title": "bd-2023",
+  "description": "description",
+  "seatStatus": 5,
+  "address": "dhaka",
+  "startDate": "2023-07-25T10:57:45.593Z",
+  "endDate": "2023-07-25T10:57:45.593Z",
+  "categories": "eee",
+  "teacherProfileId": "e18638c7-23ae-4ab3-a85d-9ca47d3f1244"
+}
 
 ###
 
@@ -148,7 +150,7 @@ Content-Type: application/json
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsb0BnbWFpbC5jb20iLCJpZCI6ImFiOTM2OWFhLWM0Y2YtNDQ5Yi1hMjFmLTM3ZGQ2NWQ4ODBmMCIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODc2MjgwNDV9.Xgo7zmykWY_aqR5vBDKVPGh_lnHc6PHdUzHG56Ua_P0
 
 {
-  "query":"phy"
+  "query":"cse"
 }
 
 ###
@@ -212,6 +214,28 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ2
   "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491"
 }
 
+
+
+//show enrolled students
+###
+GET   http://localhost:5000/enrollcourse/enrolledstudents/8909b4c2-f5ab-4ed5-80fa-c73f1c707e87 HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjVkOTQwZWI1LWQ4NzktNDI2Mi05OWQ0LTIyNDdiMWEzZTJlYyIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTAwNTIxNTN9.4CXwzWx9HQG2ArEmy6z-kYnWWrkjeCIwwPU_xOec6Po
+
+
+//kickout a student
+###
+DELETE  http://localhost:5000/enrollcourse/kickout HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjVkOTQwZWI1LWQ4NzktNDI2Mi05OWQ0LTIyNDdiMWEzZTJlYyIsInR5cGUiOiJURUFDSEVSIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTAwNTIxNTN9.4CXwzWx9HQG2ArEmy6z-kYnWWrkjeCIwwPU_xOec6Po
+
+{
+  "courseid":"8909b4c2-f5ab-4ed5-80fa-c73f1c707e87",
+   "studentProfileId": "2adb4a20-a45e-444e-ba6d-1004bdeb07eb"
+}
+
+
+
 ###
 DELETE   http://localhost:5000/enrollcourse/unenroll HTTP/1.1
 Content-Type: application/json
@@ -222,51 +246,61 @@ Content-Type: application/json
 
 //review
 ###
-POST   http://localhost:5000/review/givereview HTTP/1.1
+POST   http://localhost:5000/ratingreview/giveratingreview HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
 
 {
-      "studentProfileId":"520a06a1-9c2a-433d-bddd-b3b1bda70a1d",
-      "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1",
-      "comment":"baler course"
+      "studentProfileId":"469f1b3d-ead7-4938-bdbe-2adc8c7e74c2",
+      "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
+      "comment":"best course so far 2",
+      "rate":5
 }
+
+
+
+# ###
+# GET    http://localhost:5000/review/seereview/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
+# Content-Type: application/json
+
+
+
+
+
+# //rating
+
+# ###
+# POST   http://localhost:5000/rating/giverating HTTP/1.1
+# Content-Type: application/json
+# Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaWs1NEBnbWFpbC5jb20iLCJpZCI6IjJkNDQ3MjBhLWVjNmYtNGY3Zi1hNGQ0LTMxNjA1MWE5YWY4YyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODg4OTM2MjR9.-Q0LV3nPIL19P1VZZLmlu0kLqU3l58Acgj2pL85ax8Q
+
+# {
+#       "studentProfileId":"8adaa07a-5e7b-4c3f-9bb5-ec83300df632",
+#       "courseId":"296591aa-2941-470e-b037-a4fab66bf398",
+#       "rate":4
+# }
 
 
 
 ###
-GET    http://localhost:5000/review/seereview HTTP/1.1
+GET    http://localhost:5000/ratingreview/seetotalrating/296591aa-2941-470e-b037-a4fab66bf398 HTTP/1.1
 Content-Type: application/json
-
-{
-      "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277"
-}
-
-
-
-
-
-//rating
 
 ###
-POST   http://localhost:5000/rating/giverating HTTP/1.1
+GET    http://localhost:5000/ratingreview/showratingreview/296591aa-2941-470e-b037-a4fab66bf398 HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
-
-{
-      "studentProfileId":"8adaa07a-5e7b-4c3f-9bb5-ec83300df632",
-      "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1",
-      "rate":3
-}
-
 
 
 ###
-GET    http://localhost:5000/rating/seerating HTTP/1.1
+POST    http://localhost:5000/chat/givechat HTTP/1.1
 Content-Type: application/json
 
 {
-      "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277"
+  "courseId":"0a83cd14-3022-4761-b568-3dec2b6de277",
+  "userId":"5d940eb5-d879-4262-99d4-2247b1a3e2ec",
+  "chat": "we are best"
 }
 
-
+###
+GET    http://localhost:5000/chat/seechat/0a83cd14-3022-4761-b568-3dec2b6de277 HTTP/1.1
+Content-Type: application/json

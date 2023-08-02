@@ -4,15 +4,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'skldjfa;lsdj';
 
 const signup = async (req, res) => {
-  // req = from front end
-  // res = to front end
-
-  // email,name,password = req.body
-  // distructuring
-  console.log('signup hoche');
-
   let { email, name, password, type } = req.body;
-  console.log(req.body, email, name, password, type);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +36,6 @@ const signup = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  console.log('sign in kaj kore');
   let { email, password } = req.body;
   try {
     const user = await prisma.user.findUnique({ where: { email } });
@@ -78,4 +69,27 @@ const signin = async (req, res) => {
     res.status(500).json({ message: 'Something went wrong', error: err });
   }
 };
-module.exports = { signin, signup };
+
+
+const showProfile = async (req, res) => {
+  // let { id } = req.params;
+
+  try {
+    const courses = await prisma.user.findUnique({
+      where:{
+        id:req.user.id
+  
+      },
+      include: {
+        TeacherProfile: true,
+        StudentProfile: true,
+      },
+    });
+  
+    res.status(201).json({ data: courses });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+module.exports = { signin, signup, showProfile};

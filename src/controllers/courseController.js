@@ -5,26 +5,26 @@ const SECRET_KEY = 'skldjfa;lsdj';
 //
 //course insert or create
 const coursePost = async (req, res) => {
-  console.log('course post');
-  console.log(req.body);
   try {
     let {
       title,
       description,
       seatStatus,
       address,
+      startDate,
       endDate,
       categories,
       teacherProfileId,
     } = req.body;
+    startDate = new Date(startDate);
     endDate = new Date(endDate);
-
     let courseCreate = await prisma.course.create({
       data: {
         title: title,
         description: description,
         seatStatus: seatStatus,
         address: address,
+        startDate: startDate,
         endDate: endDate,
         categories: categories,
         TeacherProfile: {
@@ -34,6 +34,7 @@ const coursePost = async (req, res) => {
         },
       },
     });
+
     res.status(201).json({ courseCreate: courseCreate });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -42,7 +43,7 @@ const coursePost = async (req, res) => {
 
 //search using categories
 const courseSearch = async (req, res) => {
-  let { query } = req.body;
+  let { query } = req.params;
 
   try {
     let coursedetails = await prisma.course.findMany({
@@ -64,7 +65,7 @@ const courseSearch = async (req, res) => {
         createdAt: 'desc',
       },
     });
-    console.log(coursedetails);
+
     res.status(201).json({ coursedetails: coursedetails });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
@@ -73,12 +74,12 @@ const courseSearch = async (req, res) => {
 
 //for all courses page
 const courseGet = async (req, res) => {
-  console.log('get courses');
   try {
     let courseshow = await prisma.course.findMany({
       orderBy: {
         createdAt: 'desc',
       },
+      include: { TeacherProfile: { include: { user: true } } },
     });
 
     res.status(201).json({ courseshow: courseshow });
@@ -88,7 +89,6 @@ const courseGet = async (req, res) => {
 };
 //for single teacher
 const courseGetPersonal = async (req, res) => {
-
   try {
     let { id } = req.params;
     let courseshow = await prisma.course.findMany({
@@ -113,14 +113,19 @@ const courseGetPersonal = async (req, res) => {
 //singleCourse
 
 const singleCourse = async (req, res) => {
-  console.log('get single course');
   const id = req.params.id;
   let course = await prisma.course.findUnique({
     where: {
       id: id,
     },
+    include: {
+      TeacherProfile: { include: { user: true } },
+      CourseEnroll: {
+        include: { StudentProfile: { include: { user: true } } },
+      },
+    },
   });
-  console.log(id);
+
   res.status(201).json({ course: course });
   try {
   } catch (err) {
@@ -130,7 +135,6 @@ const singleCourse = async (req, res) => {
 
 //course update
 const coursePatch = async (req, res) => {
-  console.log('course patch----------------');
   let { description, seatStatus, address, endDate } = req.body;
   const id = req.params.id;
 
@@ -143,6 +147,7 @@ const coursePatch = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
+        startDate: new Date(startDate),
         endDate: new Date(endDate),
       },
     });
@@ -160,14 +165,12 @@ const courseDelete = async (req, res) => {
 
   try {
     let coursedelete = await prisma.course.delete({
-      where :{
-        id:id
-      }
+      where: {
+        id: id,
+      },
     });
-    console.log(coursedelete)
-  
-    res.status(201).json({ coursedelete: coursedelete });
 
+    res.status(201).json({ coursedelete: coursedelete });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -181,5 +184,5 @@ module.exports = {
   courseSearch,
   courseDelete,
   coursePatch,
-  courseGetPersonal
+  courseGetPersonal,
 };

@@ -19,29 +19,21 @@ const tutorCreate = async (req, res) => {
 };
 
 const tutorPatch = async (req, res) => {
-  let { password, bio, education } = req.body;
+  let { bio, education } = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const updateTeacher = await prisma.teacherProfile.update({
+    where: {
+      userId: req.user.id,
+    },
+    data: {
+      bio: bio,
+      education: education,
+    },
+  });
+
+  res.status(201).json({ updateTeacher: updateTeacher });
 
   try {
-    const updateTeacher = await prisma.teacherProfile.update({
-      where: {
-        userId: req.user.id,
-      },
-      data: {
-        user: {
-          update: {
-            password: hashedPassword,
-          },
-        },
-        bio: bio,
-        education: education,
-      },
-    });
-    console.log(req.user.id);
-    console.log(updateTeacher);
-    console.log(password);
-    res.status(201).json({ updateTeacher: updateTeacher });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -49,25 +41,31 @@ const tutorPatch = async (req, res) => {
 //
 
 //not done yet
-const tutorDelete = async (req, res) => {
-  let { bio, education } = req.body;
+
+const GetTutors = async (req, res) => {
+  let { id } = req.params;
   try {
-    const deleteTeacher = await prisma.teacherProfile.delete({
-      where:
-        OR[
-          ({
-            userId: req.user.id,
-          },
-          {
-            email: req.user.email,
-          })
-        ],
-      data: {
-        bio: bio,
-        education: education,
+    const courses = await prisma.teacherProfile.findMany({
+      include: { user: true },
+    });
+
+    res.status(201).json({ data: courses });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+const SearchTutor = async (req, res) => {
+  let { name } = req.params;
+
+  try {
+    const profile = await prisma.course.findMany({
+      where: {
+        teacherProfileId: name,
       },
     });
-    res.status(201).json({ deleteTeacher: deleteTeacher });
+
+    res.status(201).json({ data: profile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -75,4 +73,4 @@ const tutorDelete = async (req, res) => {
 
 //
 
-module.exports = { tutorCreate, tutorPatch, tutorDelete };
+module.exports = { tutorCreate, tutorPatch, GetTutors, SearchTutor };
