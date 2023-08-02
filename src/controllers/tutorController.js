@@ -6,20 +6,22 @@ const SECRET_KEY = 'skldjfa;lsdj';
 // localhost:3000/student/:id
 
 const tutorCreate = async (req, res) => {
-  let { bio, education } = req.body;
-  try {
-    let teacherProfile = await prisma.teacherProfile.create({
-      data: { bio: bio, education: education, userId: req.user.id },
-    });
+  let { bio, education,Phone } = req.body;
+  let teacherProfile = await prisma.teacherProfile.create({
+    data: { bio: bio, education: education,Phone:Phone, userId: req.user.id },
+  });
 
-    res.status(201).json({ teacherProfile: teacherProfile });
+  res.status(201).json({ teacherProfile: teacherProfile });
+  try {
+
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
+
 const tutorPatch = async (req, res) => {
-  let { bio, education } = req.body;
+  let { bio, education,Phone } = req.body;
 
   const updateTeacher = await prisma.teacherProfile.update({
     where: {
@@ -28,6 +30,7 @@ const tutorPatch = async (req, res) => {
     data: {
       bio: bio,
       education: education,
+      Phone:Phone
     },
   });
 

@@ -36,6 +36,7 @@ model StudentProfile {
   id           String         @id @default(uuid())
   bio          String
   education    String
+  Phone        String?
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String         @unique
   CourseEnroll CourseEnroll[]
@@ -47,6 +48,7 @@ model TeacherProfile {
   id        String   @id @default(uuid())
   bio       String
   education String
+  Phone     String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
   Course    Course[]
