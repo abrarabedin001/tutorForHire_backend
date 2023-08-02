@@ -6,22 +6,20 @@ const SECRET_KEY = 'skldjfa;lsdj';
 // localhost:3000/student/:id
 
 const tutorCreate = async (req, res) => {
-  let { bio, education,Phone } = req.body;
+  let { bio, education, Phone } = req.body;
   let teacherProfile = await prisma.teacherProfile.create({
-    data: { bio: bio, education: education,Phone:Phone, userId: req.user.id },
+    data: { bio: bio, education: education, Phone: Phone, userId: req.user.id },
   });
 
   res.status(201).json({ teacherProfile: teacherProfile });
   try {
-
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-
 const tutorPatch = async (req, res) => {
-  let { bio, education,Phone } = req.body;
+  let { bio, education, Phone } = req.body;
 
   const updateTeacher = await prisma.teacherProfile.update({
     where: {
@@ -30,7 +28,7 @@ const tutorPatch = async (req, res) => {
     data: {
       bio: bio,
       education: education,
-      Phone:Phone
+      Phone: Phone,
     },
   });
 
@@ -44,6 +42,19 @@ const tutorPatch = async (req, res) => {
 //
 
 //not done yet
+const GetProfile = async (req, res) => {
+  const profile = await prisma.teacherProfile.findFirst({
+    where: {
+      userId: req.user.id,
+    },
+  });
+  console.log(profile);
+  res.status(201).json({ data: profile });
+  try {
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
 
 const GetTutors = async (req, res) => {
   let { id } = req.params;
@@ -76,4 +87,10 @@ const SearchTutor = async (req, res) => {
 
 //
 
-module.exports = { tutorCreate, tutorPatch, GetTutors, SearchTutor };
+module.exports = {
+  tutorCreate,
+  tutorPatch,
+  GetTutors,
+  SearchTutor,
+  GetProfile,
+};
