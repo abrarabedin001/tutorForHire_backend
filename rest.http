@@ -55,7 +55,7 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "faizan@gmail.com",
+  "email": "bangladesh@gmail.com",
   "password": "12345678"
 }
 
@@ -75,11 +75,12 @@ Content-Type: application/json
 
 POST  http://localhost:5000/tutor/tutorcreate HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpdXV1QGdtYWlsLmNvbSIsImlkIjoiZTRhZWYzYTEtOTI0Yi00MTcxLTkzOTUtNTk5NzI3NjA4YjJiIiwidHlwZSI6IlRFQUNIRVIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY4NzY5MzgzM30.lHzoCB5eFbRaUQl5HGwsiLSO1Q63yToiRPyS_fOwOqk
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmdsYWRlc2hAZ21haWwuY29tIiwiaWQiOiI4NmViMDQ5MS01MjQ2LTQxNWQtYTlkZi0zNWIxNmQzZThhZjQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkwOTgzNjUwfQ.dPGZr3zY3UdV60BhNyJPtR8jRvcmVu7LgTTKcsjS09A
 
 { 
   "bio": "ronaldo",
-  "education": "no idea"
+  "education": "no idea",
+  "Phone":"01521351854"
 }
 
 
