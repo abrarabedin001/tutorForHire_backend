@@ -19,7 +19,7 @@ model User {
   type           Type
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
-  Chat      Chat[]
+  Chat           Chat[]
 }
 
 enum Type {
@@ -57,10 +57,11 @@ model Course {
   id               String         @id @default(uuid())
   title            String
   published        Boolean        @default(false)
+  rate             Int            @default(0)
   description      String?
   seatStatus       Int?
   address          String?
-  startDate        DateTime? 
+  startDate        DateTime?
   endDate          DateTime?
   categories       String
   Chat             Chat[]
@@ -86,7 +87,6 @@ model CourseEnroll {
   @@unique([courseId, studentProfileId])
 }
 
-
 model RatingReview {
   id               String          @id @default(uuid())
   courseId         String
@@ -101,13 +101,11 @@ model RatingReview {
 }
 
 model Chat {
-  id               String          @id @default(uuid())
-  courseId         String         
-  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  userId       String
-  user         User?           @relation(fields: [userId], references: [id], onDelete: Cascade) 
-  chat String?
-  created_at       DateTime        @default(now())
+  id         String   @id @default(uuid())
+  courseId   String
+  Course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat       String?
+  created_at DateTime @default(now())
 }
-
-
