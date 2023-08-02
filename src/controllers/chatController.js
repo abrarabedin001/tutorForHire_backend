@@ -6,7 +6,7 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const giveChat = async (req, res) => {
   let { courseId, chat } = req.body;
-
+  // ------------
   try {
     const postChat = await prisma.chat.create({
       data: {
