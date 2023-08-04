@@ -129,7 +129,6 @@ const courseUnenroll = async (req, res) => {
   }
 };
 
-
 // use kickout button
 const studentKickout = async (req, res) => {
   const { id1, id2 } = req.params;

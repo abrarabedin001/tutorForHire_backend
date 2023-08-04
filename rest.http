@@ -55,8 +55,8 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "faizan@gmail.com",
-  "password": "12345678"
+  "email": "bangladesh@gmail.com",
+  "password": "anik5555"
 }
 
 ###
@@ -66,8 +66,8 @@ Content-Type: application/json
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmdsYWRlc2hAZ21haWwuY29tIiwiaWQiOiI4NmViMDQ5MS01MjQ2LTQxNWQtYTlkZi0zNWIxNmQzZThhZjQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkxMTQ3NzQ0fQ.xgr1FewVVyipfqXrlL_J_K9DXSqC9LuFI6MzZ2kiGrY
 
 { 
-
-  "pass":"anik2222"
+  "oldPass":"anik1111",
+  "newPass":"anik5555"
 }
 
 
