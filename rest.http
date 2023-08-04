@@ -55,12 +55,20 @@ POST  http://localhost:5000/users/signin HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "bangladesh@gmail.com",
+  "email": "faizan@gmail.com",
   "password": "12345678"
 }
 
 ###
+###
+PATCH  http://localhost:5000/users/changepass HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmdsYWRlc2hAZ21haWwuY29tIiwiaWQiOiI4NmViMDQ5MS01MjQ2LTQxNWQtYTlkZi0zNWIxNmQzZThhZjQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkxMTQ3NzQ0fQ.xgr1FewVVyipfqXrlL_J_K9DXSqC9LuFI6MzZ2kiGrY
 
+{ 
+
+  "pass":"anik2222"
+}
 
 
 
@@ -198,11 +206,11 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlYWNoZX
 
 POST  http://localhost:5000/enrollcourse/enroll HTTP/1.1
 Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWpAZ21haWwuY29tIiwiaWQiOiJhNTUzN2FkZS0wYjU4LTQ4ODktYTdlNS01YzA0OTBjZmJkYjMiLCJ0eXBlIjoiU1RVREVOVCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjg4ODQwODEzfQ.7yuk_5Xhpbn_2_f_mut9yIeuEX-PQWwkONysEHeO0eg
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbkBnbWFpbC5jb20iLCJpZCI6IjE3NmQ4MGZlLWU5NmQtNDE4MS1hM2U1LTJmYjdhMjZhZGRmNyIsInR5cGUiOiJTVFVERU5UIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2OTExNzQxODZ9.kM11B01_IwOyyyr6nyK9DbuoJR8Xk8VpZ-6MBgUHYig
 
 {
-  "studentProfileId":"99db62ee-c23d-49f8-9395-045680b31491",
-  "courseId":"7033223b-c581-48a1-a6b9-87cc3e3aeea1"
+  "studentProfileId":
+  "courseId":"7c9760a1-9b23-4ed2-adac-ade2ac5774d2"
 }
 
 
@@ -248,7 +256,7 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXphbk
 
 
 ###
-DELETE   http://localhost:5000/enrollcourse/unenroll HTTP/1.1
+DELETE   http://localhost:5000/enrollcourse/unenroll/ HTTP/1.1
 Content-Type: application/json
 
 {
