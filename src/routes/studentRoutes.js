@@ -22,7 +22,7 @@ const auth = require('../middlewares/auth');
 const studentRouter = express.Router();
 
 studentRouter.post('/create', [auth, upload.single('image')], create);
-studentRouter.patch('/studentupdate', auth, update);
-studentRouter.get('/getprofile', [auth, upload.single('image')], GetProfile);
+studentRouter.patch('/studentupdate', [auth, upload.single('image')], update);
+studentRouter.get('/getprofile', auth, GetProfile);
 
 module.exports = studentRouter;
