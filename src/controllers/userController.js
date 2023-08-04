@@ -94,23 +94,39 @@ const showProfile = async (req, res) => {
 
 
 const changePass = async (req, res) => {
-  let {pass}=req.body
+  const { oldPass, newPass } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(pass, 10);
-    const passwords = await prisma.user.update({
-      where:{
-        id:req.user.id
-  
+    // Retrieve the user's current password from the database
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.user.id,
       },
-      data:{
-        password:hashedPassword
-      }
     });
-  
-    res.status(201).json({ data:passwords});
+
+    // Compare the old password with the hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(oldPass, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({ message: 'Old password is incorrect.' });
+    }
+
+    // Hash the new password
+    const hashedNewPassword = await bcrypt.hash(newPass, 10);
+
+    // Update the user's password in the database
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: req.user.id,
+      },
+      data: {
+        password: hashedNewPassword,
+      },
+    });
+    console.log(updatedUser)
+    res.status(201).json({ message: 'Password updated successfully.' });
   } catch (err) {
-    res.status(404).json({ message: 'something went wrong', error: err });
+    res.status(400).json({ message: 'Something went wrong', error: err });
   }
 };
 
