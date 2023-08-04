@@ -18,6 +18,26 @@ const tutorCreate = async (req, res) => {
   }
 };
 
+const tutorCreate2 = async (req, res) => {
+  let { bio, education, Phone, image } = req.body;
+  console.log(image);
+  console.log(req.file.filename);
+  console.log(req.body);
+  const updateTeacher = await prisma.teacherProfile.update({
+    where: {
+      userId: req.user.id,
+    },
+    data: {
+      bio: bio,
+      education: education,
+      Phone: Phone,
+      image: req.file.filename,
+    },
+  });
+
+  res.status(201).json({ updateTeacher: updateTeacher });
+};
+
 const tutorPatch = async (req, res) => {
   let { bio, education, Phone } = req.body;
 
@@ -94,4 +114,5 @@ module.exports = {
   GetTutors,
   SearchTutor,
   GetProfile,
+  tutorCreate2,
 };
