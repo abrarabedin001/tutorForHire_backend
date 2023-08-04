@@ -167,24 +167,25 @@ const coursePatch = async (req, res) => {
     endDate,
   } = req.body;
   const id = req.params.id;
-  let courseupdate = await prisma.course.update({
-    where: {
-      id: id,
-    },
-    data: {
-      title: title,
 
-      categories: categories,
-      description: description,
-      seatStatus: seatStatus,
-      address: address,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-    },
-  });
-
-  res.status(201).json({ courseupdate: courseupdate });
   try {
+    let courseupdate = await prisma.course.update({
+      where: {
+        id: id,
+      },
+      data: {
+        title: title,
+
+        categories: categories,
+        description: description,
+        seatStatus: seatStatus,
+        address: address,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+      },
+    });
+
+    res.status(201).json({ courseupdate: courseupdate });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
