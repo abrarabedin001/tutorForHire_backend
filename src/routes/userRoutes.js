@@ -1,6 +1,6 @@
 const express = require('express');
 const prisma = require('../Database');
-const { signup, signin, showProfile} = require('../controllers/userController');
+const { signup, signin, showProfile,changePass} = require('../controllers/userController');
 const auth = require('../middlewares/auth');
 // const {PrismaClient }= require('@prisma/client')
 // const prisma = new PrismaClient()
@@ -13,6 +13,7 @@ const tutorRouter = express.Router();
 userRouter.post('/signup', signup);
 userRouter.post('/signin', signin);
 userRouter.get('/showprofile',auth,showProfile);
+userRouter.patch('/changepass',auth,changePass);
 
 module.exports = userRouter;
 

@@ -60,7 +60,15 @@ Content-Type: application/json
 }
 
 ###
+###
+PATCH  http://localhost:5000/users/changepass HTTP/1.1
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhbmdsYWRlc2hAZ21haWwuY29tIiwiaWQiOiI4NmViMDQ5MS01MjQ2LTQxNWQtYTlkZi0zNWIxNmQzZThhZjQiLCJ0eXBlIjoiVEVBQ0hFUiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjkxMTQ3NzQ0fQ.xgr1FewVVyipfqXrlL_J_K9DXSqC9LuFI6MzZ2kiGrY
 
+{ 
+
+  "pass":"anik2222"
+}
 
 
 

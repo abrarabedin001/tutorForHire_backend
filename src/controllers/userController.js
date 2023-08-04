@@ -92,4 +92,26 @@ const showProfile = async (req, res) => {
   }
 };
 
-module.exports = { signin, signup, showProfile};
+
+const changePass = async (req, res) => {
+  let {pass}=req.body
+
+  try {
+    const hashedPassword = await bcrypt.hash(pass, 10);
+    const passwords = await prisma.user.update({
+      where:{
+        id:req.user.id
+  
+      },
+      data:{
+        password:hashedPassword
+      }
+    });
+  
+    res.status(201).json({ data:passwords});
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
+module.exports = { signin, signup, showProfile,changePass};
