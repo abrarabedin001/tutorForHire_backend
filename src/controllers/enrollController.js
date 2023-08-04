@@ -6,12 +6,13 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const courseEnroll = async (req, res) => {
   let { courseId } = req.body;
-  let user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: { StudentProfile: true },
-  });
 
   try {
+    let user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      include: { StudentProfile: true },
+    });
+    console.log(user);
     const courseEnrollment = await prisma.courseEnroll.create({
       data: {
         studentProfileId: user.StudentProfile.id,
@@ -48,22 +49,33 @@ const enrolledCourse = async (req, res) => {
 };
 
 const courseUnenroll = async (req, res) => {
-  let { id1, id2 } = req.params;
+  let { id1 } = req.params;
+  let user = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    include: { StudentProfile: true },
+  });
+
+  const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
+    where: {
+      courseId: id1,
+      studentProfileId: user.StudentProfile.id,
+    },
+  });
+
+  res.status(204);
 
   try {
-    let user = await prisma.user.findUnique({
-      where: { id: id2 },
-      include: { StudentProfile: true },
-    });
-
-    const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
-      where: {
-        courseId: id1,
-        studentProfileId: user.StudentProfile.id,
-      },
-    });
-
-    res.status(204);
+    // let user = await prisma.user.findUnique({
+    //   where: { id: id2 },
+    //   include: { StudentProfile: true },
+    // });
+    // const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
+    //   where: {
+    //     courseId: id1,
+    //     studentProfileId: user.StudentProfile.id,
+    //   },
+    // });
+    // res.status(204);
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
