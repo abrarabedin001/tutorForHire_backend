@@ -9,6 +9,7 @@ const create = async (req, res) => {
   // res.status(200).json({ message: req.userId });
 
   let { bio, education, Phone } = req.body;
+
   try {
     let studentProfile = await prisma.studentProfile.create({
       data: {
@@ -28,6 +29,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   let { bio, education, Phone } = req.body;
+  console.log(req.file);
 
   try {
     const updateStudent = await prisma.studentProfile.update({
