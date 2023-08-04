@@ -1,7 +1,6 @@
 const express = require('express');
 const prisma = require('../Database');
 const multer = require('multer');
-const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -26,9 +25,9 @@ const auth = require('../middlewares/auth');
 
 const tutorRouter = express.Router();
 
-tutorRouter.post('/tutorcreate', auth, tutorCreate);
+tutorRouter.post('/tutorcreate', [auth, upload.single('image')], tutorCreate);
 tutorRouter.post('/tutorcreate2', [auth, upload.single('image')], tutorCreate2);
-tutorRouter.patch('/tutorupdate', auth, tutorPatch);
+tutorRouter.patch('/tutorupdate', [auth, upload.single('image')], tutorPatch);
 tutorRouter.get('/searchtutor/:name', SearchTutor);
 tutorRouter.get('/getall', GetTutors);
 tutorRouter.get('/getprofile', auth, GetProfile);

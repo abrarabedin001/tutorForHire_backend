@@ -8,7 +8,13 @@ const SECRET_KEY = 'skldjfa;lsdj';
 const tutorCreate = async (req, res) => {
   let { bio, education, Phone } = req.body;
   let teacherProfile = await prisma.teacherProfile.create({
-    data: { bio: bio, education: education, Phone: Phone, userId: req.user.id },
+    data: {
+      bio: bio,
+      education: education,
+      Phone: Phone,
+      userId: req.user.id,
+      image: req.file.filename,
+    },
   });
 
   res.status(201).json({ teacherProfile: teacherProfile });
@@ -49,6 +55,7 @@ const tutorPatch = async (req, res) => {
       bio: bio,
       education: education,
       Phone: Phone,
+      image: req.file.filename,
     },
   });
 

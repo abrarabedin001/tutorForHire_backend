@@ -42,7 +42,7 @@ model StudentProfile {
   CourseEnroll CourseEnroll[]
   RatingReview RatingReview[]
   chatId       String?
-  image        Bytes?
+  image        String?
 }
 
 model TeacherProfile {
