@@ -110,6 +110,28 @@ const courseGetPersonal = async (req, res) => {
   }
 };
 
+const courseGetMyPersonal = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let courseshow = await prisma.course.findMany({
+      where: {
+        TeacherProfile: {
+          user: {
+            id: id,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(201).json({ courseshow: courseshow });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
 //singleCourse
 
 const singleCourse = async (req, res) => {
@@ -185,4 +207,5 @@ module.exports = {
   courseDelete,
   coursePatch,
   courseGetPersonal,
+  courseGetMyPersonal,
 };
