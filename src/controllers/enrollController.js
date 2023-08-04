@@ -10,6 +10,15 @@ const courseEnroll = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
+  let course= await prisma.course.findUnique({
+    where:{
+      id:courseId
+    }
+  })
+  let today=new Date()
+  console.log(course.startDate,today)
+  if ( course.startDate > today ){
+    console.log('choto')
 
   try {
     const courseEnrollment = await prisma.courseEnroll.create({
@@ -22,6 +31,10 @@ const courseEnroll = async (req, res) => {
     res.status(201).json({ courseEnrollment: courseEnrollment });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
+  }} else {
+    res
+      .status(400)
+      .json({ message: 'cannot enroll after course start date' });
   }
 };
 
@@ -49,7 +62,14 @@ const enrolledCourse = async (req, res) => {
 
 const courseUnenroll = async (req, res) => {
   let { id1, id2 } = req.params;
-
+  let course= await prisma.course.findUnique({
+    where:{
+      id:id1
+    }
+  })
+  let today=new Date()
+  console.log(course.startDate,today)
+  if ( course.startDate > today ){
   try {
     let user = await prisma.user.findUnique({
       where: { id: id2 },
@@ -67,6 +87,11 @@ const courseUnenroll = async (req, res) => {
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
+} else {
+  res
+    .status(400)
+    .json({ message: 'cannot unenroll after course start date' });
+}
 };
 
 // use kickout button
@@ -151,6 +176,7 @@ const paid = async (req, res) => {
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
+  
   
   try {
     const coursepay= await prisma.courseEnroll.update({
