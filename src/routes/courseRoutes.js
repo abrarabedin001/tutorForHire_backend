@@ -14,6 +14,7 @@ const {
   coursePatch,
   coursePost,
   courseGetPersonal,
+  courseGetMyPersonal,
 } = require('../controllers/courseController');
 const auth = require('../middlewares/auth');
 
@@ -21,6 +22,7 @@ const courseRouter = express.Router();
 courseRouter.get('/categories/:query', courseSearch);
 courseRouter.get('/showcourse', courseGet);
 courseRouter.get('/showcourse/:id', courseGetPersonal);
+courseRouter.get('/personalcourse/:id', courseGetMyPersonal);
 courseRouter.get('/singlecourse/:id', singleCourse);
 courseRouter.patch('/courseupdate/:id', auth, coursePatch);
 courseRouter.delete('/coursedelete/:id', auth, courseDelete);
