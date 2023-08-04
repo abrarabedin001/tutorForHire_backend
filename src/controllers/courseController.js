@@ -110,6 +110,28 @@ const courseGetPersonal = async (req, res) => {
   }
 };
 
+const courseGetMyPersonal = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let courseshow = await prisma.course.findMany({
+      where: {
+        TeacherProfile: {
+          user: {
+            id: id,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(201).json({ courseshow: courseshow });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
+
 //singleCourse
 
 const singleCourse = async (req, res) => {
@@ -135,7 +157,15 @@ const singleCourse = async (req, res) => {
 
 //course update
 const coursePatch = async (req, res) => {
-  let { description, seatStatus, address, endDate } = req.body;
+  let {
+    title,
+    categories,
+    description,
+    seatStatus,
+    address,
+    startDate,
+    endDate,
+  } = req.body;
   const id = req.params.id;
 
   try {
@@ -144,6 +174,9 @@ const coursePatch = async (req, res) => {
         id: id,
       },
       data: {
+        title: title,
+
+        categories: categories,
         description: description,
         seatStatus: seatStatus,
         address: address,
@@ -185,4 +218,5 @@ module.exports = {
   courseDelete,
   coursePatch,
   courseGetPersonal,
+  courseGetMyPersonal,
 };

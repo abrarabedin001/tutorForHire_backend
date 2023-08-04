@@ -7,18 +7,19 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const tutorCreate = async (req, res) => {
   let { bio, education, Phone } = req.body;
-  let teacherProfile = await prisma.teacherProfile.create({
-    data: {
-      bio: bio,
-      education: education,
-      Phone: Phone,
-      userId: req.user.id,
-      image: req.file.filename,
-    },
-  });
 
-  res.status(201).json({ teacherProfile: teacherProfile });
   try {
+    let teacherProfile = await prisma.teacherProfile.create({
+      data: {
+        bio: bio,
+        education: education,
+        Phone: Phone,
+        userId: req.user.id,
+        image: req.file.filename,
+      },
+    });
+
+    res.status(201).json({ teacherProfile: teacherProfile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -47,21 +48,20 @@ const tutorCreate2 = async (req, res) => {
 const tutorPatch = async (req, res) => {
   let { bio, education, Phone } = req.body;
 
-  const updateTeacher = await prisma.teacherProfile.update({
-    where: {
-      userId: req.user.id,
-    },
-    data: {
-      bio: bio,
-      education: education,
-      Phone: Phone,
-      image: req.file.filename,
-    },
-  });
-
-  res.status(201).json({ updateTeacher: updateTeacher });
-
   try {
+    const updateTeacher = await prisma.teacherProfile.update({
+      where: {
+        userId: req.user.id,
+      },
+      data: {
+        bio: bio,
+        education: education,
+        Phone: Phone,
+        image: req.file.filename,
+      },
+    });
+
+    res.status(201).json({ updateTeacher: updateTeacher });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -112,11 +112,27 @@ const SearchTutor = async (req, res) => {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
+const SearchTutor2 = async (req, res) => {
+  let { name } = req.params;
+
+  try {
+    const profile = await prisma.course.findMany({
+      where: {
+        TeacherProfile: { user: { id: name } },
+      },
+    });
+
+    res.status(201).json({ data: profile });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+  }
+};
 
 //
 
 module.exports = {
   tutorCreate,
+  SearchTutor2,
   tutorPatch,
   GetTutors,
   SearchTutor,

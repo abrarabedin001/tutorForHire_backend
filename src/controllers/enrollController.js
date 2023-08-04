@@ -6,16 +6,14 @@ const SECRET_KEY = 'skldjfa;lsdj';
 
 const courseEnroll = async (req, res) => {
   let { courseId } = req.body;
-  let user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: { StudentProfile: true },
-  });
+
 
   let course = await prisma.course.findUnique({
     where: {
       id: courseId,
     },
   });
+
 
   let today = new Date();
   console.log(course.startDate, today);
@@ -82,7 +80,8 @@ const enrolledCourse = async (req, res) => {
 
 
 const courseUnenroll = async (req, res) => {
-  let { id1, id2 } = req.params;
+
+  let { id1 } = req.params;
   let course = await prisma.course.findUnique({
     where: {
       id: id1,
@@ -96,7 +95,7 @@ const courseUnenroll = async (req, res) => {
     console.log('bye')
     try {
       let user = await prisma.user.findUnique({
-        where: { id: id2 },
+        where: { id: req.user.id },
         include: { StudentProfile: true },
       });
 
@@ -126,6 +125,7 @@ const courseUnenroll = async (req, res) => {
     }
   } else {
     res.status(400).json({ message: 'cannot unenroll after course start date' });
+
   }
 };
 
