@@ -70,34 +70,32 @@ const signin = async (req, res) => {
   }
 };
 
-
 const showProfile = async (req, res) => {
   // let { id } = req.params;
 
   try {
     const courses = await prisma.user.findUnique({
-      where:{
-        id:req.user.id
-  
+      where: {
+        id: req.user.id,
       },
       include: {
         TeacherProfile: true,
         StudentProfile: true,
       },
     });
-  
+
     res.status(201).json({ data: courses });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
 
-
 const changePass = async (req, res) => {
   const { oldPass, newPass } = req.body;
+  console.log('old');
+  console.log(oldPass);
 
   try {
-    // Retrieve the user's current password from the database
     const user = await prisma.user.findUnique({
       where: {
         id: req.user.id,
@@ -123,11 +121,12 @@ const changePass = async (req, res) => {
         password: hashedNewPassword,
       },
     });
-    console.log(updatedUser)
+    console.log(updatedUser);
     res.status(201).json({ message: 'Password updated successfully.' });
+    // Retrieve the user's current password from the database
   } catch (err) {
     res.status(400).json({ message: 'Something went wrong', error: err });
   }
 };
 
-module.exports = { signin, signup, showProfile,changePass};
+module.exports = { signin, signup, showProfile, changePass };
