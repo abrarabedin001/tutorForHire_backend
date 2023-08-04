@@ -8,7 +8,13 @@ const SECRET_KEY = 'skldjfa;lsdj';
 const tutorCreate = async (req, res) => {
   let { bio, education, Phone } = req.body;
   let teacherProfile = await prisma.teacherProfile.create({
-    data: { bio: bio, education: education, Phone: Phone, userId: req.user.id },
+    data: {
+      bio: bio,
+      education: education,
+      Phone: Phone,
+      userId: req.user.id,
+      image: req.file.filename,
+    },
   });
 
   res.status(201).json({ teacherProfile: teacherProfile });
@@ -16,6 +22,26 @@ const tutorCreate = async (req, res) => {
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
+};
+
+const tutorCreate2 = async (req, res) => {
+  let { bio, education, Phone, image } = req.body;
+  console.log(image);
+  console.log(req.file.filename);
+  console.log(req.body);
+  const updateTeacher = await prisma.teacherProfile.update({
+    where: {
+      userId: req.user.id,
+    },
+    data: {
+      bio: bio,
+      education: education,
+      Phone: Phone,
+      image: req.file.filename,
+    },
+  });
+
+  res.status(201).json({ updateTeacher: updateTeacher });
 };
 
 const tutorPatch = async (req, res) => {
@@ -29,6 +55,7 @@ const tutorPatch = async (req, res) => {
       bio: bio,
       education: education,
       Phone: Phone,
+      image: req.file.filename,
     },
   });
 
@@ -94,4 +121,5 @@ module.exports = {
   GetTutors,
   SearchTutor,
   GetProfile,
+  tutorCreate2,
 };

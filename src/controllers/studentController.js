@@ -16,6 +16,7 @@ const create = async (req, res) => {
         education: education,
         Phone: Phone,
         userId: req.user.id,
+        image: req.file.filename,
       },
     });
 
@@ -37,6 +38,7 @@ const update = async (req, res) => {
         bio: bio,
         education: education,
         Phone: Phone,
+        image: req.file.filename,
       },
     });
 
