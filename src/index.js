@@ -6,7 +6,7 @@ const courseRouter = require('./routes/courseRoutes');
 const enrollRouter = require('./routes/enrollRoutes');
 const ratingReviewRouter = require('./routes/ratingReviewRoutes');
 // const reviewRouter = require('./routes/reviewRoutes');
-const chatRouter=require('./routes/chatRoutes');
+const chatRouter = require('./routes/chatRoutes');
 
 const app = express();
 
@@ -18,7 +18,8 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
+app.use(express.static('public'));
+app.use('/images', express.static('images'));
 app.use(express.json());
 
 app.use('/users', userRouter);
@@ -27,7 +28,7 @@ app.use('/student', studentRouter);
 app.use('/course', courseRouter);
 app.use('/enrollcourse', enrollRouter);
 app.use('/ratingreview', ratingReviewRouter);
-app.use('/chat',chatRouter)
+app.use('/chat', chatRouter);
 // app.use('/review',reviewRouter)
 
 app.get('/', (req, res) => {

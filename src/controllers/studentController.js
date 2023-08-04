@@ -8,10 +8,16 @@ const SECRET_KEY = 'skldjfa;lsdj';
 const create = async (req, res) => {
   // res.status(200).json({ message: req.userId });
 
-  let { bio, education,Phone } = req.body;
+  let { bio, education, Phone } = req.body;
   try {
     let studentProfile = await prisma.studentProfile.create({
-      data: { bio: bio, education: education,Phone:Phone, userId: req.user.id },
+      data: {
+        bio: bio,
+        education: education,
+        Phone: Phone,
+        userId: req.user.id,
+        image: req.file.filename,
+      },
     });
 
     res.status(201).json({ studentProfile: studentProfile });
@@ -21,7 +27,7 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  let { bio, education,Phone } = req.body;
+  let { bio, education, Phone } = req.body;
 
   try {
     const updateStudent = await prisma.studentProfile.update({
@@ -31,7 +37,8 @@ const update = async (req, res) => {
       data: {
         bio: bio,
         education: education,
-        Phone:Phone
+        Phone: Phone,
+        image: req.file.filename,
       },
     });
 
@@ -48,12 +55,12 @@ const GetProfile = async (req, res) => {
       where: {
         userId: req.user.id,
       },
+      include: { user: true },
     });
     res.status(201).json({ data: profile });
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
-
 
 module.exports = { create, update, GetProfile };
