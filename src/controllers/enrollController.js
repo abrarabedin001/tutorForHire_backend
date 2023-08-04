@@ -56,8 +56,6 @@ const courseEnroll = async (req, res) => {
     res.status(400).json({ message: 'cannot enroll after course start date' });
   }
 };
-
-
 const enrolledCourse = async (req, res) => {
   let user = await prisma.user.findUnique({
     where: { id: req.user.id },
@@ -80,8 +78,8 @@ const enrolledCourse = async (req, res) => {
   }
 };
 
-
 const courseUnenroll = async (req, res) => {
+  console.log('asdfasdfasdf');
   let { id1, id2 } = req.params;
   let course = await prisma.course.findUnique({
     where: {
@@ -93,39 +91,40 @@ const courseUnenroll = async (req, res) => {
   console.log(course.startDate, today);
 
   if (course.startDate > today) {
-    console.log('bye')
+    console.log('bye');
+    let user = await prisma.user.findUnique({
+      where: { id: id2 },
+      include: { StudentProfile: true },
+    });
+
+    const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
+      where: {
+        courseId: id1,
+        studentProfileId: user.StudentProfile.id,
+      },
+    });
+
+    // Increment the seat status count
+    await prisma.course.update({
+      where: {
+        id: id1,
+      },
+      data: {
+        seatStatus: {
+          increment: 1,
+        },
+      },
+    });
+
+    res.status(201).send();
     try {
-      let user = await prisma.user.findUnique({
-        where: { id: id2 },
-        include: { StudentProfile: true },
-      });
-
-      const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
-        where: {
-          courseId: id1,
-          studentProfileId: user.StudentProfile.id,
-        },
-      });
-
-      // Increment the seat status count
-      await prisma.course.update({
-        where: {
-          id: id1,
-        },
-        data: {
-          seatStatus: {
-            increment: 1,
-          },
-        },
-      });
-
-    
-      res.status(204).send();
     } catch (err) {
       res.status(404).json({ message: 'something went wrong', error: err });
     }
   } else {
-    res.status(400).json({ message: 'cannot unenroll after course start date' });
+    res
+      .status(400)
+      .json({ message: 'cannot unenroll after course start date' });
   }
 };
 
@@ -167,18 +166,17 @@ const studentKickout = async (req, res) => {
     },
   });
 
-    // Increment the seat status count
-    await prisma.course.update({
-      where: {
-        id: id1,
+  // Increment the seat status count
+  await prisma.course.update({
+    where: {
+      id: id1,
+    },
+    data: {
+      seatStatus: {
+        increment: 1,
       },
-      data: {
-        seatStatus: {
-          increment: 1,
-        },
-      },
-    });
-
+    },
+  });
 
   res.status(201).json({ kickout: kickout });
 
@@ -219,33 +217,30 @@ const enrolledStudents = async (req, res) => {
 
 //newly made
 const paid = async (req, res) => {
-  let { courseId,paid } = req.body;
+  let { courseId, paid } = req.body;
   let user = await prisma.user.findUnique({
     where: { id: req.user.id },
     include: { StudentProfile: true },
   });
-  
-  
+
   try {
-    const coursepay= await prisma.courseEnroll.update({
+    const coursepay = await prisma.courseEnroll.update({
       where: {
-        courseId_studentProfileId:{
-        studentProfileId: user.StudentProfile.id,
-        courseId: courseId,
+        courseId_studentProfileId: {
+          studentProfileId: user.StudentProfile.id,
+          courseId: courseId,
+        },
       },
+      data: {
+        paid: paid,
       },
-      data:{
-        paid:paid
-      }
     });
-  
+
     res.status(201).json({ coursepay: coursepay });
-  
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
 };
-
 
 module.exports = {
   courseEnroll,
@@ -253,6 +248,5 @@ module.exports = {
   enrolledCourse,
   courseUnenroll,
   enrolledStudents,
-  paid
-
+  paid,
 };

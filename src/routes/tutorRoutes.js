@@ -19,6 +19,7 @@ const {
   tutorPatch,
   GetTutors,
   SearchTutor,
+  SearchTutor2,
   GetProfile,
 } = require('../controllers/tutorController');
 const auth = require('../middlewares/auth');
@@ -29,6 +30,7 @@ tutorRouter.post('/tutorcreate', [auth, upload.single('image')], tutorCreate);
 tutorRouter.post('/tutorcreate2', [auth, upload.single('image')], tutorCreate2);
 tutorRouter.patch('/tutorupdate', [auth, upload.single('image')], tutorPatch);
 tutorRouter.get('/searchtutor/:name', SearchTutor);
+tutorRouter.get('/searchtutor2/:name', SearchTutor2);
 tutorRouter.get('/getall', GetTutors);
 tutorRouter.get('/getprofile', auth, GetProfile);
 // getprofile
