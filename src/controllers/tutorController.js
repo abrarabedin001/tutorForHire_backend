@@ -57,7 +57,7 @@ const tutorPatch = async (req, res) => {
         bio: bio,
         education: education,
         Phone: Phone,
-        image: req?.file?.filename ? req?.file?.filename : null,
+        image: req.file.filename,
       },
     });
 
@@ -120,7 +120,6 @@ const SearchTutor2 = async (req, res) => {
       where: {
         TeacherProfile: { user: { id: name } },
       },
-      include: { TeacherProfile: { include: { user: true } } },
     });
 
     res.status(201).json({ data: profile });

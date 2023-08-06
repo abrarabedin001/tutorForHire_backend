@@ -56,7 +56,7 @@ const courseSearch = async (req, res) => {
           },
           {
             categories: {
-              contains: query,
+              contains: `%${query}%`,
             },
           },
         ],
