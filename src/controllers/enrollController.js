@@ -68,7 +68,7 @@ const enrolledCourse = async (req, res) => {
         studentProfileId: user.StudentProfile.id,
       },
       include: {
-        Course: true,
+        Course: { include: { TeacherProfile: {include:{user:true}} } },
       },
     });
 

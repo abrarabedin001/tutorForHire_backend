@@ -124,6 +124,7 @@ const courseGetMyPersonal = async (req, res) => {
       orderBy: {
         createdAt: 'desc',
       },
+      include: { TeacherProfile: { include: { user: true } } },
     });
 
     res.status(201).json({ courseshow: courseshow });
