@@ -20,6 +20,8 @@ model User {
   StudentProfile StudentProfile?
   TeacherProfile TeacherProfile?
   Chat           Chat[]
+  Question      Question[]
+  Answer Answer[]
 }
 
 enum Type {
@@ -69,6 +71,7 @@ model Course {
   endDate          DateTime?
   categories       String
   Chat             Chat[]
+  Question      Question[]
   CourseEnroll     CourseEnroll[]
   RatingReview     RatingReview[]
   teacherProfileId String
@@ -113,4 +116,31 @@ model Chat {
   user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   chat       String?
   created_at DateTime @default(now())
+}
+
+model Question{
+  id String @id @default(uuid())
+  title String?
+  question String?
+  marks Int
+  start_date DateTime @default(now())
+  end_date DateTime
+  Answer Answer[]
+  courseId   String
+  Course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Answer{
+  id String @id @default(uuid())
+  answer String?
+  quesId String
+  feedback String?
+  marking Int @default(0)
+  ans_date DateTime @default(now())
+  Question Question @relation(fields: [quesId],references: [id],onDelete: Cascade)
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
 }
