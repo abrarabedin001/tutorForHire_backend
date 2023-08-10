@@ -1,9 +1,14 @@
 const express = require('express');
 const prisma = require('../Database');
 
-const { createQues, createAns,postFeedback,getAnswers} = require('../controllers/classroomController');
+const {
+  createQues,
+  createAns,
+  postFeedback,
+  getAnswers,
+} = require('../controllers/classroomController');
 const auth = require('../middlewares/auth');
-classroomRouter = express.Router();
+const classroomRouter = express.Router();
 
 classroomRouter.post('/createques', auth, createQues);
 classroomRouter.post('/createans', auth, createAns);
