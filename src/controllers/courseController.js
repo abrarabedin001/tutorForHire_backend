@@ -56,7 +56,7 @@ const courseSearch = async (req, res) => {
           },
           {
             categories: {
-              contains: query,
+              contains: `%${query}%`,
             },
           },
         ],
@@ -124,6 +124,7 @@ const courseGetMyPersonal = async (req, res) => {
       orderBy: {
         createdAt: 'desc',
       },
+      include: { TeacherProfile: { include: { user: true } } },
     });
 
     res.status(201).json({ courseshow: courseshow });

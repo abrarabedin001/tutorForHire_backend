@@ -17,7 +17,7 @@ const create = async (req, res) => {
         education: education,
         Phone: Phone,
         userId: req.user.id,
-        image: req.file.filename,
+        image: req?.file?.filename ? req?.file?.filename : null,
       },
     });
 
