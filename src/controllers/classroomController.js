@@ -4,46 +4,34 @@ const prisma = require('../Database');
 const createQues = async (req, res) => {
   let { title, question, marks, start_date, end_date, courseId } = req.body;
   console.log(req.body);
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: { TeacherProfile: true },
-  });
-
-  if (!user || !user.TeacherProfile) {
-    return res
-      .status(400)
-      .json({ message: 'Only teachers are allowed to post questions' });
-  }
-
-  startDate = new Date(start_date);
-  endDate = new Date(end_date);
-  let courseCreate = await prisma.question.create({
-    data: {
-      title: title,
-      question: question,
-      courseId: courseId,
-      marks: Number(marks),
-      start_date: startDate,
-      end_date: endDate,
-      userId: req.user.id,
-    },
-  });
-
-  // const postques = await prisma.question.create({
-  //   data: {
-  //     title: title,
-  //     question: question,
-  //     courseId: courseId,
-  //     marks: marks,
-  //     start_date: start_date,
-  //     end_date: end_date,
-  //     userId: req.user.id,
-  //   },
-  // });
-
-  res.status(201).json({ postques: courseCreate });
 
   try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      include: { TeacherProfile: true },
+    });
+
+    if (!user || !user.TeacherProfile) {
+      return res
+        .status(400)
+        .json({ message: 'Only teachers are allowed to post questions' });
+    }
+
+    startDate = new Date(start_date);
+    endDate = new Date(end_date);
+    let courseCreate = await prisma.question.create({
+      data: {
+        title: title,
+        question: question,
+        courseId: courseId,
+        marks: Number(marks),
+        start_date: startDate,
+        end_date: endDate,
+        userId: req.user.id,
+      },
+    });
+
+    res.status(201).json({ postques: courseCreate });
     // Check if the user has a Teacher profile
   } catch (err) {
     res.status(404).json({ message: 'Something went wrong', error: err });
@@ -178,4 +166,28 @@ const getAnswers = async (req, res) => {
   }
 };
 
-module.exports = { createQues, createAns, postFeedback, getAnswers };
+const getQues = async (req, res) => {
+  const { courseId } = req.params;
+  console.log('get course');
+  // Fetch the question information
+  const question = await prisma.Question.findMany({
+    where: { courseId: courseId },
+    include: { user: true, Course: true, Answer: true },
+  });
+
+  if (!question) {
+    return res.status(500).json({ message: 'Question not found' });
+  }
+
+  // Check if the current date is after the end_date
+
+  // Fetch all answers for the question after its end_date
+  console.log(question);
+  res.status(201).json({ question: question });
+  try {
+  } catch (err) {
+    res.status(404).json({ message: 'Something went wrong', error: err });
+  }
+};
+
+module.exports = { createQues, getQues, createAns, postFeedback, getAnswers };
