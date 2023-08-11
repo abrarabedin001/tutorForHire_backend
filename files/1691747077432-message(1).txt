@@ -1,0 +1,22 @@
+> git -c user.useConfigOnly=true commit --quiet --allow-empty-message --file -
+
+> reinforz@0.1.0 typecheck
+> npx tsc --project tsconfig.json --noEmit
+
+background/tasks/sendWeeklyUpdates/sendWeeklyUpdates.ts(10,9): error TS2322: Type '{ weeklyUpdates: true; }' is not assignable to type '(Without<UserEmailSettingsRelationFilter, UserEmailSettingsWhereInput> & UserEmailSettingsWhereInput) | (Without<...> & UserEmailSettingsRelationFilter) | null | undefined'.
+  Object literal may only specify known properties, and 'weeklyUpdates' does not exist in type '(Without<UserEmailSettingsRelationFilter, UserEmailSettingsWhereInput> & UserEmailSettingsWhereInput) | (Without<...> & UserEmailSettingsRelationFilter)'.
+scripts/newBlogRelease.ts(10,9): error TS2322: Type '{ newBlogPublished: true; }' is not assignable to type '(Without<UserEmailSettingsRelationFilter, UserEmailSettingsWhereInput> & UserEmailSettingsWhereInput) | (Without<...> & UserEmailSettingsRelationFilter) | null | undefined'.
+  Object literal may only specify known properties, and 'newBlogPublished' does not exist in type '(Without<UserEmailSettingsRelationFilter, UserEmailSettingsWhereInput> & UserEmailSettingsWhereInput) | (Without<...> & UserEmailSettingsRelationFilter)'.
+scripts/updateEmailOptIn.ts(15,13): error TS2322: Type '{ weeklyUpdates: true; newBlogPublished: true; }' is not assignable to type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput) | undefined'.
+  Object literal may only specify known properties, and 'weeklyUpdates' does not exist in type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput)'.
+src/components/models/UserEmailSettings/UserEmailSettings.tsx(32,13): error TS2339: Property 'weeklyUpdates' does not exist on type 'UserEmailSettings | { weeklyUpdates: boolean; newBlogPublished: boolean; }'.
+src/components/models/UserEmailSettings/UserEmailSettings.tsx(32,28): error TS2339: Property 'newBlogPublished' does not exist on type 'UserEmailSettings | { weeklyUpdates: boolean; newBlogPublished: boolean; }'.
+src/server/api/auth/auth.router.ts(44,15): error TS2322: Type '{ weeklyUpdates: true; newBlogPublished: true; }' is not assignable to type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput) | undefined'.
+  Object literal may only specify known properties, and 'weeklyUpdates' does not exist in type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput)'.
+src/server/api/auth/auth.router.ts(74,33): error TS2339: Property 'profile' does not exist on type 'User'.
+src/server/api/userEmailSettings/userEmailSettings.router.ts(28,11): error TS2322: Type '{ weeklyUpdates: boolean; newBlogPublished: boolean; }' is not assignable to type '(Without<UserEmailSettingsUpdateInput, UserEmailSettingsUncheckedUpdateInput> & UserEmailSettingsUncheckedUpdateInput) | (Without<...> & UserEmailSettingsUpdateInput)'.
+  Object literal may only specify known properties, and 'weeklyUpdates' does not exist in type '(Without<UserEmailSettingsUpdateInput, UserEmailSettingsUncheckedUpdateInput> & UserEmailSettingsUncheckedUpdateInput) | (Without<...> & UserEmailSettingsUpdateInput)'.
+tests/helpers/model.ts(48,11): error TS2322: Type '{ weeklyUpdates: true; newBlogPublished: true; }' is not assignable to type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput) | undefined'.
+  Object literal may only specify known properties, and 'weeklyUpdates' does not exist in type '(Without<UserEmailSettingsCreateWithoutUserInput, UserEmailSettingsUncheckedCreateWithoutUserInput> & UserEmailSettingsUncheckedCreateWithoutUserInput) | (Without<...> & UserEmailSettingsCreateWithoutUserInput)'.
+tests/helpers/model.ts(70,26): error TS2339: Property 'profile' does not exist on type 'User'.
+Type validation failedhusky - pre-commit hook exited with code 1 (error)

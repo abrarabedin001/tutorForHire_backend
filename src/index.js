@@ -21,6 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use('/images', express.static('images'));
+app.use('/files', express.static('files'));
 app.use(express.json());
 
 app.use('/users', userRouter);

@@ -131,6 +131,7 @@ model Question {
   Course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   userId     String
   user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  file       String?
 }
 
 model Answer {
@@ -143,4 +144,5 @@ model Answer {
   Question Question @relation(fields: [quesId], references: [id], onDelete: Cascade)
   userId   String
   user     User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  file     String?
 }
