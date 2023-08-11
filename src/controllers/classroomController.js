@@ -28,6 +28,7 @@ const createQues = async (req, res) => {
         start_date: startDate,
         end_date: endDate,
         userId: req.user.id,
+        file: req?.file?.filename,
       },
     });
 
@@ -40,10 +41,13 @@ const createQues = async (req, res) => {
 
 //-------------------------------------create answer
 const createAns = async (req, res) => {
-  let { answer, quesId } = req.body;
+  let { answer, quesId, file } = req.body;
+  // console.log('File Name');
+  // console.log(answer, quesId);
+  // console.log(req?.file?.filename);
+  // console.log(req.body);
 
   try {
-    // Check if the user has a Student profile
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
       include: { StudentProfile: true },
@@ -78,10 +82,13 @@ const createAns = async (req, res) => {
         answer: answer,
         quesId: quesId,
         userId: req.user.id,
+        file: req?.file?.filename,
       },
     });
 
     res.status(201).json({ postAns: postAns });
+
+    // Check if the user has a Student profile
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong', error: err });
   }
@@ -170,21 +177,26 @@ const getQues = async (req, res) => {
   const { courseId } = req.params;
   console.log('get course');
   // Fetch the question information
-  const question = await prisma.Question.findMany({
-    where: { courseId: courseId },
-    include: { user: true, Course: true, Answer: true },
-  });
 
-  if (!question) {
-    return res.status(500).json({ message: 'Question not found' });
-  }
-
-  // Check if the current date is after the end_date
-
-  // Fetch all answers for the question after its end_date
-  console.log(question);
-  res.status(201).json({ question: question });
   try {
+    const question = await prisma.Question.findMany({
+      where: { courseId: courseId },
+      include: {
+        user: { include: { TeacherProfile: true } },
+        Course: true,
+        Answer: { include: { user: true } },
+      },
+    });
+
+    if (!question) {
+      return res.status(500).json({ message: 'Question not found' });
+    }
+
+    // Check if the current date is after the end_date
+
+    // Fetch all answers for the question after its end_date
+
+    res.status(201).json({ question: question });
   } catch (err) {
     res.status(404).json({ message: 'Something went wrong', error: err });
   }
