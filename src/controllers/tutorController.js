@@ -105,6 +105,12 @@ const SearchTutor = async (req, res) => {
       where: {
         teacherProfileId: name,
       },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
+        },
+      },
     });
 
     res.status(201).json({ data: profile });
@@ -119,6 +125,12 @@ const SearchTutor2 = async (req, res) => {
     const profile = await prisma.course.findMany({
       where: {
         TeacherProfile: { user: { id: name } },
+      },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
+        },
       },
     });
 

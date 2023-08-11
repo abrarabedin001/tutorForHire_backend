@@ -25,7 +25,7 @@ const coursePost = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
-        cost:cost,
+        cost: cost,
         startDate: startDate,
         endDate: endDate,
         categories: categories,
@@ -38,7 +38,7 @@ const coursePost = async (req, res) => {
     });
 
     res.status(201).json({ courseCreate: courseCreate });
-    console.log(courseCreate)
+    console.log(courseCreate);
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -64,6 +64,12 @@ const courseSearch = async (req, res) => {
           },
         ],
       },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -82,7 +88,12 @@ const courseGet = async (req, res) => {
       orderBy: {
         createdAt: 'desc',
       },
-      include: { TeacherProfile: { include: { user: true } } },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
+        },
+      },
     });
 
     res.status(201).json({ courseshow: courseshow });
@@ -100,6 +111,12 @@ const courseGetPersonal = async (req, res) => {
           is: {
             userId: id,
           },
+        },
+      },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
         },
       },
       orderBy: {
@@ -127,7 +144,12 @@ const courseGetMyPersonal = async (req, res) => {
       orderBy: {
         createdAt: 'desc',
       },
-      include: { TeacherProfile: { include: { user: true } } },
+      include: {
+        TeacherProfile: { include: { user: true } },
+        CourseEnroll: {
+          include: { StudentProfile: { include: { user: true } } },
+        },
+      },
     });
 
     res.status(201).json({ courseshow: courseshow });
@@ -180,19 +202,19 @@ const coursePatch = async (req, res) => {
       },
       data: {
         title: title,
-  
+
         categories: categories,
         description: description,
         seatStatus: seatStatus,
         address: address,
-        cost:cost,
+        cost: cost,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
       },
     });
-  
+
     res.status(201).json({ courseupdate: courseupdate });
-    console.log(courseupdate)
+    console.log(courseupdate);
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
