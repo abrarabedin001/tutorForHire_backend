@@ -11,6 +11,7 @@ const coursePost = async (req, res) => {
       description,
       seatStatus,
       address,
+      cost,
       startDate,
       endDate,
       categories,
@@ -24,6 +25,7 @@ const coursePost = async (req, res) => {
         description: description,
         seatStatus: seatStatus,
         address: address,
+        cost:cost,
         startDate: startDate,
         endDate: endDate,
         categories: categories,
@@ -36,6 +38,7 @@ const coursePost = async (req, res) => {
     });
 
     res.status(201).json({ courseCreate: courseCreate });
+    console.log(courseCreate)
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
@@ -164,6 +167,7 @@ const coursePatch = async (req, res) => {
     description,
     seatStatus,
     address,
+    cost,
     startDate,
     endDate,
   } = req.body;
@@ -176,17 +180,19 @@ const coursePatch = async (req, res) => {
       },
       data: {
         title: title,
-
+  
         categories: categories,
         description: description,
         seatStatus: seatStatus,
         address: address,
+        cost:cost,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
       },
     });
-
+  
     res.status(201).json({ courseupdate: courseupdate });
+    console.log(courseupdate)
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
