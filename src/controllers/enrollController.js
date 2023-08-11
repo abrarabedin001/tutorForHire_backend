@@ -67,8 +67,21 @@ const enrolledCourse = async (req, res) => {
       where: {
         studentProfileId: user.StudentProfile.id,
       },
+      // include: {
+      //   TeacherProfile: { include: { user: true } },
+      //   CourseEnroll: {
+      //     include: { StudentProfile: { include: { user: true } } },
+      //   },
+      // },
       include: {
-        Course: { include: { TeacherProfile: {include:{user:true}} } },
+        Course: {
+          include: {
+            TeacherProfile: { include: { user: true } },
+            CourseEnroll: {
+              include: { StudentProfile: { include: { user: true } } },
+            },
+          },
+        },
       },
     });
 
@@ -97,7 +110,6 @@ const courseUnenroll = async (req, res) => {
       include: { StudentProfile: true },
     });
 
-    
     try {
       const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
         where: {
@@ -105,8 +117,8 @@ const courseUnenroll = async (req, res) => {
           studentProfileId: user.StudentProfile.id,
         },
       });
-      console.log(deletedCourseEnroll)
-  
+      console.log(deletedCourseEnroll);
+
       // Increment the seat status count
       await prisma.course.update({
         where: {
