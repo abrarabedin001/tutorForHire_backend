@@ -67,6 +67,7 @@ model Course {
   description      String?
   seatStatus       Int?
   address          String?
+  cost           Int @default(0)
   startDate        DateTime?
   endDate          DateTime?
   categories       String

@@ -97,27 +97,29 @@ const courseUnenroll = async (req, res) => {
       include: { StudentProfile: true },
     });
 
-    const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
-      where: {
-        courseId: id1,
-        studentProfileId: user.StudentProfile.id,
-      },
-    });
-
-    // Increment the seat status count
-    await prisma.course.update({
-      where: {
-        id: id1,
-      },
-      data: {
-        seatStatus: {
-          increment: 1,
-        },
-      },
-    });
-
-    res.status(201).send();
+    
     try {
+      const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
+        where: {
+          courseId: id1,
+          studentProfileId: user.StudentProfile.id,
+        },
+      });
+      console.log(deletedCourseEnroll)
+  
+      // Increment the seat status count
+      await prisma.course.update({
+        where: {
+          id: id1,
+        },
+        data: {
+          seatStatus: {
+            increment: 1,
+          },
+        },
+      });
+
+      res.status(201).send();
     } catch (err) {
       res.status(404).json({ message: 'something went wrong', error: err });
     }
