@@ -88,7 +88,7 @@ model CourseEnroll {
   courseId         String
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   studentProfileId String?
-
+  enroll_date DateTime  @default(now())
   transaction_id String?
   paid           Boolean @default(false)
   Course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)

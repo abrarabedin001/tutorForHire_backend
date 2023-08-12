@@ -17,6 +17,8 @@ const coursePost = async (req, res) => {
       categories,
       teacherProfileId,
     } = req.body;
+    title=title.toLowerCase();
+    categories=categories.toLowerCase()
     startDate = new Date(startDate);
     endDate = new Date(endDate);
     let courseCreate = await prisma.course.create({
@@ -47,6 +49,7 @@ const coursePost = async (req, res) => {
 //search using categories
 const courseSearch = async (req, res) => {
   let { query } = req.params;
+  const lowercaseQuery = query.toLowerCase();
 
   try {
     let coursedetails = await prisma.course.findMany({
@@ -54,12 +57,12 @@ const courseSearch = async (req, res) => {
         OR: [
           {
             title: {
-              contains: query,
+              contains: lowercaseQuery,
             },
           },
           {
             categories: {
-              contains: `%${query}%`,
+              contains: lowercaseQuery,
             },
           },
         ],
@@ -76,6 +79,7 @@ const courseSearch = async (req, res) => {
     });
 
     res.status(201).json({ coursedetails: coursedetails });
+    console.log(coursedetails)
   } catch (err) {
     res.status(404).json({ message: 'something went wrong', error: err });
   }
