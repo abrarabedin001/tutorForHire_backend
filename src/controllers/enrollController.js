@@ -67,16 +67,11 @@ const enrolledCourse = async (req, res) => {
       where: {
         studentProfileId: user.StudentProfile.id,
       },
-      // include: {
-      //   TeacherProfile: { include: { user: true } },
-      //   CourseEnroll: {
-      //     include: { StudentProfile: { include: { user: true } } },
-      //   },
-      // },
+
       orderBy: {
         enroll_date: 'desc',
       },
-      
+
       include: {
         Course: {
           include: {
@@ -98,23 +93,23 @@ const enrolledCourse = async (req, res) => {
 const courseUnenroll = async (req, res) => {
   console.log('asdfasdfasdf');
   let { id1, id2 } = req.params;
-  let course = await prisma.course.findUnique({
-    where: {
-      id: id1,
-    },
-  });
 
-  let today = new Date();
-  console.log(course.startDate, today);
-
-  if (course.startDate > today) {
-    console.log('bye');
-    let user = await prisma.user.findUnique({
-      where: { id: id2 },
-      include: { StudentProfile: true },
+  try {
+    let course = await prisma.course.findUnique({
+      where: {
+        id: id1,
+      },
     });
 
-    try {
+    let today = new Date();
+    console.log(course.startDate, today);
+
+    if (course.startDate > today) {
+      console.log('bye');
+      let user = await prisma.user.findUnique({
+        where: { id: id2 },
+        include: { StudentProfile: true },
+      });
       const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
         where: {
           courseId: id1,
@@ -124,7 +119,7 @@ const courseUnenroll = async (req, res) => {
       console.log(deletedCourseEnroll);
 
       // Increment the seat status count
-      await prisma.course.update({
+      const update = await prisma.course.update({
         where: {
           id: id1,
         },
@@ -134,15 +129,13 @@ const courseUnenroll = async (req, res) => {
           },
         },
       });
+      console.log(update);
 
-      res.status(201).send();
-    } catch (err) {
-      res.status(404).json({ message: 'something went wrong', error: err });
+      res.status(200).json({ update: update });
     }
-  } else {
-    res
-      .status(400)
-      .json({ message: 'cannot unenroll after course start date' });
+  } catch (err) {
+    res.status(404).json({ message: 'something went wrong', error: err });
+    console.log(err);
   }
 };
 
