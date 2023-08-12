@@ -18,6 +18,7 @@ const {
   getQues,
   postFeedback,
   getAnswers,
+  deleteQues
 } = require('../controllers/classroomController');
 const auth = require('../middlewares/auth');
 const classroomRouter = express.Router();
@@ -27,6 +28,7 @@ classroomRouter.get('/getques/:courseId', auth, getQues);
 classroomRouter.post('/createans', [auth, upload.single('files')], createAns);
 classroomRouter.patch('/feedback', auth, postFeedback);
 classroomRouter.get('/getanswer/:quesId', auth, getAnswers);
+classroomRouter.delete('/deleteques/:quesId', auth, deleteQues);
 
 // reviewRouter.get('/seechat/:id1', seeChat);
 module.exports = classroomRouter;

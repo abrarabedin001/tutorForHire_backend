@@ -181,6 +181,9 @@ const getQues = async (req, res) => {
   try {
     const question = await prisma.Question.findMany({
       where: { courseId: courseId },
+      orderBy:{
+        start_date:"desc"
+      },
       include: {
         user: { include: { TeacherProfile: true } },
         Course: true,
@@ -202,4 +205,28 @@ const getQues = async (req, res) => {
   }
 };
 
-module.exports = { createQues, getQues, createAns, postFeedback, getAnswers };
+const deleteQues = async (req, res) => {
+  const { quesId } = req.params;
+  console.log('delete course');
+  // Fetch the question information
+
+  try {
+    const deletequestion = await prisma.Question.delete({
+      where: { id: quesId },
+  
+    });
+
+    if (!deletequestion) {
+      return res.status(500).json({ message: 'Question not found' });
+    }
+
+    // Check if the current date is after the end_date
+
+    // Fetch all answers for the question after its end_date
+
+    res.status(201).json({ deletequestion: deletequestion });
+  } catch (err) {
+    res.status(404).json({ message: 'Something went wrong', error: err });
+  }
+};
+module.exports = { createQues, getQues, createAns, postFeedback, getAnswers ,deleteQues};
