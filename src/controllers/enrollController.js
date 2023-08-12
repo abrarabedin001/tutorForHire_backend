@@ -93,23 +93,20 @@ const enrolledCourse = async (req, res) => {
 const courseUnenroll = async (req, res) => {
   console.log('asdfasdfasdf');
   let { id1, id2 } = req.params;
-
-  try {
-    let course = await prisma.course.findUnique({
-      where: {
-        id: id1,
-      },
+  let course = await prisma.course.findUnique({
+    where: {
+      id: id1,
+    },
+  });
+  let today = new Date();
+  console.log(course.startDate, today);
+  if (course.startDate > today) {
+    console.log('bye');
+    let user = await prisma.user.findUnique({
+      where: { id: id2 },
+      include: { StudentProfile: true },
     });
-
-    let today = new Date();
-    console.log(course.startDate, today);
-
-    if (course.startDate > today) {
-      console.log('bye');
-      let user = await prisma.user.findUnique({
-        where: { id: id2 },
-        include: { StudentProfile: true },
-      });
+    try {
       const deletedCourseEnroll = await prisma.courseEnroll.deleteMany({
         where: {
           courseId: id1,
@@ -132,10 +129,14 @@ const courseUnenroll = async (req, res) => {
       console.log(update);
 
       res.status(200).json({ update: update });
+    } catch (err) {
+      res.status(404).json({ message: 'something went wrong', error: err });
+      console.log(err);
     }
-  } catch (err) {
-    res.status(404).json({ message: 'something went wrong', error: err });
-    console.log(err);
+  } else {
+    res
+      .status(400)
+      .json({ message: 'cannot unenroll after course start date' });
   }
 };
 
