@@ -46,6 +46,8 @@ const giveRatingReview = async (req, res) => {
         where: { id: courseId },
         data: { rate: averageRating },
       });
+      console.log(updateCourse);
+      res.status(201).json({ updateCourse: updateCourse });
     } catch (err) {
       res.status(404).json({ message: 'Something went wrong', error: err });
     }

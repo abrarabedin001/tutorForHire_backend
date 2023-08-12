@@ -67,7 +67,7 @@ model Course {
   description      String?
   seatStatus       Int?
   address          String?
-  cost           Int @default(0)
+  cost             Int            @default(0)
   startDate        DateTime?
   endDate          DateTime?
   categories       String
@@ -88,10 +88,10 @@ model CourseEnroll {
   courseId         String
   StudentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   studentProfileId String?
-  enroll_date DateTime  @default(now())
-  transaction_id String?
-  paid           Boolean @default(false)
-  Course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enroll_date      DateTime        @default(now())
+  transaction_id   String?
+  paid             Boolean         @default(false)
+  Course           Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId, studentProfileId])
 }
