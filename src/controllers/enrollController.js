@@ -73,6 +73,10 @@ const enrolledCourse = async (req, res) => {
       //     include: { StudentProfile: { include: { user: true } } },
       //   },
       // },
+      orderBy: {
+        enroll_date: 'desc',
+      },
+      
       include: {
         Course: {
           include: {
