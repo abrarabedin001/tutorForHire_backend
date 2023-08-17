@@ -32,7 +32,9 @@ const seeChat = async (req, res) => {
       orderBy: {
         created_at: 'desc',
       },
-      include: { user: true },
+      include: {
+        user: { include: { StudentProfile: true, TeacherProfile: true } },
+      },
     });
 
     res.status(201).json({ showChat: showChat });
